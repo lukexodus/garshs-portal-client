@@ -1,0 +1,122 @@
+import React from "react";
+import { HiClipboardCheck, HiBadgeCheck } from "react-icons/hi";
+import axios from "axios";
+import { useToast } from "./contexts/ToastContext";
+import { usePopupModal } from "./contexts/PopupModalContext";
+
+const RequirementStudent = ({
+  requirement,
+  studentsNum,
+  setRefetch,
+  params,
+  ...props
+}) => {
+  const options = { month: "short", day: "numeric" };
+  // hour: 'numeric', minute: 'numeric'
+  const deadlineDateTime = new Date(requirement.deadlineDateTime);
+  const deadlineDateTimeString = deadlineDateTime.toLocaleString(
+    "en-US",
+    options
+  );
+  const { section, subject } = params;
+
+  const { setPopupModal } = usePopupModal();
+  const { setToast } = useToast();
+
+  const setAsPassedHandler = (requirementId, userId) => {
+    axios
+      .patch(
+        "/api/v1/requirements",
+        {
+          mode: "setAsPassed",
+          requirementId,
+          userId,
+          section,
+          subject,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.success) {
+          setToast({
+            message: "Requirement set as passed",
+            icon: "check",
+            lifetime: 5000,
+          });
+          setRefetch((prev) => !prev);
+        } else {
+          setToast({ message: res.data.msg, icon: "cross" });
+        }
+      })
+      .catch((err) => {
+        console.log("Error updating requirement (set as passed)");
+        console.error(err);
+      });
+  };
+
+  return (
+    <div className="mx-auto bg-[#5355e0] shadow-lg rounded-lg h-[calc(100%-1rem)] 2xl:mr-4 2xl:mb-4 px-6 py-5 flex flex-col items-start flex-grow">
+      <div className="w-full flex flex-row flex-nowrap justify-between items-center mb-3 ">
+        <span className="flex flex-col ">
+          <h4 className="text-xl xl:text-2xl leading-snug font-semibold lg:font-bold text-gray-50 mb-[2px] sm:mb-[3px] flex-shrink my-0 flex-auto ">
+            {requirement.requirement}
+          </h4>
+          <small className="font-extralight">
+            Due {deadlineDateTimeString}
+          </small>
+        </span>
+        {requirement.statusReport[0].confirmedPassed ? (
+          <span className="flex items-center self-start pt-[5px] cursor-pointer ml-4">
+            <span className="text-sm">Passed</span>
+            <span className="ml-2">
+              <HiBadgeCheck className="w-6 h-6" />
+            </span>
+          </span>
+        ) : requirement.statusReport[0].passed ? (
+          <span className="flex items-center self-start pt-[5px] cursor-pointer ml-4 pointer-events-none">
+            <span className="text-sm w-min sm:w-max md:w-min lg:w-max 2xl:w-min">
+              Waiting for confirmation
+            </span>
+            <span className="ml-2">
+              <HiBadgeCheck className="w-6 h-6" />
+            </span>
+          </span>
+        ) : (
+          <span
+            className="group flex items-center self-start pt-[2px] cursor-pointer hover:underline h-[33px] ml-4"
+            onClick={() => {
+              setPopupModal({
+                message: `Set '${requirement.requirement}' requirement as passed?`,
+                primary: "Confirm",
+                handler: () => {
+                  setAsPassedHandler(
+                    requirement._id,
+                    requirement.statusReport[0]._id
+                  );
+                },
+              });
+            }}
+          >
+            <span className="text-sm w-min sm:w-max md:w-min lg:w-max 2xl:w-min">
+              Set as passed
+            </span>
+            <span className="ml-2">
+              <HiClipboardCheck className="w-6 h-6 group-hover:w-7 group-hover:h-7" />
+            </span>
+          </span>
+        )}
+      </div>
+      <div className="flex items-end justify-between whitespace-normal">
+        <p className="mb-2 text-indigo-100 text-sm lg:text-base">
+          {requirement.details}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default RequirementStudent;

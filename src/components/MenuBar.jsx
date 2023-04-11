@@ -1,0 +1,20 @@
+import React, { useState } from 'react'
+
+const burgerBarBaseStyle = "w-9 h-1 bg-indigo-700 rounded-lg";
+const burgerBarClickedStyle = "ease-out duration-500";
+const burgerBarUnclickedStyle = "rotate-0 translate-0 transition-ease-custom duration-500"
+
+const MenuBar = ({open, toggleMenu, className}) => {
+
+    return (
+    <div className={`flex items-center justify-center ${className}`}>
+        <div className="h-7 w-9 flex flex-col items-start justify-between cursor-pointer" onClick={() => {toggleMenu()}}>
+            <div className={`${burgerBarBaseStyle} ${open ? `${burgerBarClickedStyle} rotate-45 translate-y-3` : burgerBarUnclickedStyle }`}></div>
+            <div className={`${burgerBarBaseStyle} ${open ? `${burgerBarClickedStyle} scale-0` : burgerBarUnclickedStyle }`}></div>
+            <div className={`${burgerBarBaseStyle} ${open ? `${burgerBarClickedStyle} rotate-135 -translate-y-3` : burgerBarUnclickedStyle }`}></div>
+        </div>
+    </div>
+    )
+}
+
+export default MenuBar
