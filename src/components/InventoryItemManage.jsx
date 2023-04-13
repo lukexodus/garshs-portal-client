@@ -177,7 +177,7 @@ const InventoryItemManage = ({ item, ...props }) => {
   };
 
   return (
-    <div className="bg-[#5355e0] shadow-lg  rounded-lg px-4 py-5 2xl:mr-4 2xl:mb-4 flex group space-x-3">
+    <div className="bg-[#5355e0] shadow-lg  rounded-lg px-3 sm:px-4 py-4 sm:py-5 2xl:mr-4 2xl:mb-4 flex group space-x-3">
       <span className="flex-none flex flex-col justify-between items-center h-full mr-1">
         <img
           src={`/qrcodes/${item._id}.svg`}
@@ -268,11 +268,11 @@ const InventoryItemManage = ({ item, ...props }) => {
           </Button>
         )}
       </span>
-      <div className="flex-auto ml-5 flex space-y-[0.65rem] flex-col">
+      <div className="flex-auto ml-3 sm:ml-5 flex space-y-[0.65rem] flex-col">
         <h4 className="text-lg xl:text-xl leading-snug font-semibold lg:font-bold text-gray-50 mb-[2px] sm:mb-[3px] my-0">
           {item.item}
         </h4>
-        <div className="flex items-center space-x-2 text-xs lg:text-sm">
+        <div className="flex text-xs lg:text-sm flex-col items-start sm:items-center sm:flex-row self-start space-x-0 sm:space-x-1 space-y-2 sm:space-y-0">
           <span className="flex bg-indigo-500 p-1 rounded pr-[7px] mr-1 space-x-[2px] items-center">
             <MdLocationPin size={19} />
             <span className="">Location</span>
@@ -291,10 +291,10 @@ const InventoryItemManage = ({ item, ...props }) => {
             ))}
           </ul>
         </div>
-        <div className="flex items-center space-x-2 text-xs lg:text-sm">
+        <div className="flex text-xs lg:text-sm flex-col items-start sm:items-center sm:flex-row self-start space-x-0 sm:space-x-1 space-y-2 sm:space-y-0">
           <span className="flex bg-indigo-500 p-1 rounded pr-[7px] mr-1 space-x-[2px] items-center">
             <MdOutlinePersonPinCircle size={19} />
-            <span className="">In charge</span>
+            <span className="">In&nbsp;charge</span>
           </span>
           <ul className="flex flex-wrap">
             {item.personInCharge.map((personDoc, i) => (
@@ -308,7 +308,7 @@ const InventoryItemManage = ({ item, ...props }) => {
           </ul>
         </div>
         {item.borrowers.length !== 0 && (
-          <div className="flex justify-center space-y-4 text-xs lg:text-sm flex-col">
+          <div className="flex justify-center space-y-2 text-xs lg:text-sm flex-col">
             <span className="self-start flex bg-indigo-500 p-1 rounded pr-[7px] mr-1 space-x-[5px] items-center">
               <GoRequestChanges className="ml-[2px] mt-[3px]" size={14} />
               <span className="">Borrowers</span>

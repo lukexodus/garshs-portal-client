@@ -256,7 +256,7 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
               </div>
               {formState.inputs.personInCharge.value.length !== 0 && (
                 <div>
-                  <ul className="w-min mt-2">
+                  <ul className="w-min mt-2 flex flex-col space-y-2">
                     {formState.inputs.personInCharge.value.map(
                       (personDoc, i) => {
                         return (
@@ -318,7 +318,7 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
               </div>
               {formState.inputs.placeToFind.value.length !== 0 && (
                 <div>
-                  <ul className="w-min mt-2">
+                  <ul className="w-min mt-2 flex flex-col space-y-2">
                     {formState.inputs.placeToFind.value.map((placeDoc, i) => {
                       return (
                         <li

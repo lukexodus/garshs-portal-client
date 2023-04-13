@@ -60,7 +60,7 @@ const InventoryList = ({ ...props }) => {
           <div className="flex justify-between items-center">
             <h2>Inventory List</h2>
             {["admin", "superadmin"].includes(data.user.role) && (
-              <span className="flex space-x-1 self-end group">
+              <span className="flex space-x-1 self-center sm:self-end group">
                 <span className="flex justify-center items-center">
                   <MdOutlineAdd size={22} className="text-white" />
                 </span>

@@ -219,7 +219,7 @@ const InventoryItem = ({ item, ...props }) => {
         <h4 className="text-lg xl:text-xl leading-snug font-semibold lg:font-bold text-gray-50 mb-[2px] sm:mb-[3px] my-0">
           {item.item}
         </h4>
-        <div className="flex items-center space-x-1 text-xs lg:text-sm">
+        <div className="flex text-xs lg:text-sm flex-col items-start sm:items-center sm:flex-row self-start space-x-0 sm:space-x-1 space-y-2 sm:space-y-0">
           <span className="flex bg-indigo-500 p-1 rounded pr-[7px] mr-1 space-x-[2px] items-center">
             <MdLocationPin size={19} />
             <span className="">Location</span>
@@ -238,10 +238,10 @@ const InventoryItem = ({ item, ...props }) => {
             ))}
           </ul>
         </div>
-        <div className="flex items-center space-x-1 text-xs lg:text-sm">
+        <div className="flex text-xs lg:text-sm flex-col items-start sm:items-center sm:flex-row self-start space-x-0 sm:space-x-1 space-y-2 sm:space-y-0">
           <span className="flex bg-indigo-500 p-1 rounded pr-[7px] mr-1 space-x-[2px] items-center">
             <MdOutlinePersonPinCircle size={19} />
-            <span className="">In charge</span>
+            <span className="">In&nbsp;charge</span>
           </span>
           <ul className="flex flex-wrap">
             {item.personInCharge.map((personDoc, i) => (

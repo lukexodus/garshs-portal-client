@@ -92,18 +92,18 @@ const User = () => {
   const infoGroupContainerClassName = "flex flex-col space-y-[0.6rem]";
 
   return (
-    <div className="bg-white rounded-lg text-indigo-700 p-7 m-4 lg:p-12 shadow flex flex-col space-y-8">
+    <div className="bg-white rounded-lg text-indigo-700 p-5 sm:p-7 m-1 sm:m-4 lg:p-12 shadow flex flex-col space-y-8">
       {isLocalDataReady ? (
         isUserDataReady ? (
           <>
             <div className=" flex space-x-4 lg:space-x-6 items-center">
               <Avatar user={{ ...basicInfo, _id }} size={10} path="/user/" />
               <span className="flex flex-col space-y-1">
-                <h1 className="text-transparent bg-clip-text bg-gradient-to-l from-purple-500 to-sky-600 my-1">
+                <h1 className="text-transparent bg-clip-text bg-gradient-to-l from-purple-500 to-sky-600 my-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tighter sm:leading-tight">
                   {basicInfo.firstName} {basicInfo.lastName}
                 </h1>
                 {section ? (
-                  <span className="rounded-full px-3 py-1 text-base bg-indigo-400 w-max text-white font-semibold">
+                  <span className="rounded-full px-3 py-1 text-sm sm:text-base bg-indigo-400 w-max text-white font-semibold">
                     {
                       data.map.sections.find(
                         (sectionObj) => sectionObj.value === section
