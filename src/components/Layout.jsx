@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   const wrapperClassName =
     "flex flex-col items-center justify-between mx-auto min-h-screen bg-indigo-600";
   const mainClassName =
-    "py-6 md:py-11 lg:py-14  px-7 md:px-7 lg:px-14 xl:px-20  max-w-7xl min-w-[70%] w-full";
+    "py-5 sm:py-6 md:py-11 lg:py-14 px-5 sm:px-7 md:px-7 lg:px-14 xl:px-20  max-w-7xl min-w-[70%] w-full";
 
   return (
     <div className="max-w-full min-h-screen">

@@ -45,7 +45,7 @@ const Sections = () => {
   return (
     <>
       {isLocalDataReady && isSectionsReady ? (
-        <div className="flex items-start justify-center p-8 md:py-12 lg:px-10 2xl:px-14 flex-col space-y-6 text-white">
+        <div className="flex items-start justify-center p-6 sm:p-8 md:py-12 lg:px-10 2xl:px-14 flex-col space-y-6 text-white">
           <h1 className="flex space-x-3 md:space-x-5">
             <span className="my-0 py-0">
               <SiGoogleclassroom />

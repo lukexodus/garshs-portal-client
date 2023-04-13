@@ -121,7 +121,7 @@ const InventoryItem = ({ item, ...props }) => {
 
   return (
     <div
-      className={`bg-[#5355e0] shadow-lg  rounded-lg px-4 py-5 2xl:mr-4 2xl:mb-4 flex group w-full ${
+      className={`bg-[#5355e0] shadow-lg  rounded-lg px-3 sm:px-4 py-4 sm:py-5 2xl:mr-4 2xl:mb-4 flex group w-full ${
         props.className ? props.className : ""
       }`}
     >
@@ -215,7 +215,7 @@ const InventoryItem = ({ item, ...props }) => {
           </Button>
         )}
       </span>
-      <div className="flex-auto ml-5 flex space-y-[0.65rem] flex-col">
+      <div className="flex-auto ml-3 sm:ml-5 flex space-y-[0.65rem] flex-col">
         <h4 className="text-lg xl:text-xl leading-snug font-semibold lg:font-bold text-gray-50 mb-[2px] sm:mb-[3px] my-0">
           {item.item}
         </h4>

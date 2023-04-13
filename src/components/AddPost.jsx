@@ -122,6 +122,7 @@ const AddPost = ({
   };
 
   const postHandler = async () => {
+    setToast({icon: "check", message: "Posting..."});
     if (editorStateRef.current) {
       formState.inputs.body.value = JSON.stringify(editorStateRef.current);
     }
@@ -200,6 +201,10 @@ const AddPost = ({
       for (const imageFile of processedFormState.images) {
         formData.append("images", imageFile);
       }
+    }
+
+    for (let [key, value] of formData.entries()) {
+       console.log(`${key}: ${value}`);
     }
 
     console.log("processedFormState", processedFormState);

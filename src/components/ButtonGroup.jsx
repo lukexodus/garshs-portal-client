@@ -6,7 +6,7 @@ const ButtonGroup = ({ options, stateHandler, state }) => {
       {options.map((option, i) => (
         <button
           key={i}
-          className={`px-4 py-2 text-sm font-medium rounded-none ${
+          className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-semilight sm:font-medium rounded-none ${
             i === 0
               ? "rounded-l-lg"
               : i === options.length - 1

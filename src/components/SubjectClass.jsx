@@ -328,7 +328,7 @@ const SubjectClass = () => {
                 {data.user.role === "admin" || data.user.role === "student" ? (
                   <ul className="flex flex-wrap">
                     {subjects.map((subjectItem, i) => (
-                      <li key={i}>
+                      <li key={i} className="mr-2 mt-2">
                         <Button
                           variant="transparent"
                           size="smallResponsive"

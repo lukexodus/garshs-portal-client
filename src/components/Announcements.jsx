@@ -21,7 +21,7 @@ const Announcements = ({
     <div
       className={`flex flex-col space-y-4 ${
         props.className && props.className
-      } rounded-lg border-indigo-300 border-opacity-50 border-2 p-5 lg:p-6 xl:p-8 shadow-lg `}
+      } rounded-lg border-indigo-300 border-opacity-50 border-2 p-4 sm:p-5 lg:p-6 xl:p-8 shadow-lg `}
     >
       <div className="flex justify-between flex-wrap">
         <h2 className="pr-12 flex items-center">

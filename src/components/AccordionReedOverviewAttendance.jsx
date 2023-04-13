@@ -57,7 +57,7 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
   }, [isInitialized]);
 
   const gridStyle =
-    "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 gap-4";
+    "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 gap-2 sm:gap-4";
 
   return (
     <div className={`w-full ${props.className ? props.className : ""}`} key={i}>
@@ -110,7 +110,7 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
               ) : (
                 <></>
               )}
-              <span className="text-2xl">
+              <span className="text-lg sm:text-2xl">
                 {group.type === "section" ? (
                   <>
                     {
@@ -152,9 +152,9 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
         {isGroupDataReady ? (
           <div className="flex flex-col space-y-7">
             {users.length === 0 ? (
-              <>There are no users in this group.</>
+              <span className="text-sm sm:text-base">There are no users in this group.</span>
             ) : attendanceRecords.length === 0 ? (
-              <>There are no classes for today.</>
+              <span className="text-sm sm:text-base">There are no classes for today.</span>
             ) : (
               <>
                 {group.type === "section" ? (

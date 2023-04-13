@@ -77,7 +77,7 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
                 }
                 className="text-[0.75rem] h-7 w-7 text-white bg-gradient-to-t  from-blue-400 to-purple-400"
               />
-              <span className="text-2xl">
+              <span className="text-lg sm:text-2xl">
                 {
                   data.map.sections.find((obj) => obj.value === section.section)
                     .name
@@ -88,14 +88,14 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
             {section.adviser ? (
               <>
                 <span className="text-sm font-light flex space-x-2 items-center mr-3">
-                  <FaChalkboardTeacher />
+                  <FaChalkboardTeacher className="hidden sm:block" />
                   <span className="">
                     {section.adviser.firstName} {section.adviser.lastName}
                   </span>
                 </span>
               </>
             ) : (
-              <span className="mr-3 font-extralight text-xs">
+              <span className="mr-3 font-extralight text-[0.7rem] sm:text-xs">
                 No adviser yet
               </span>
             )}
@@ -129,9 +129,11 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
                 <div className="flex flex-col space-y-2 divide-y-[1px] divide-gray-300 divide-opacity-30">
                   {sectionData.subjects.map((subject, i) => (
                     <span className="flex space-x-2 items-center pt-2 ">
-                      {subjectIconsForSidebar[subject.subject]}
-                      <span className="flex items-center justify-between w-full">
-                        <span className="text-sm max-w-sm w-5/12 truncate">
+                      <span className="hidden sm:block">{subjectIconsForSidebar[subject.subject]}</span>
+                      <span className="flex items-center justify-between w-full max-w-full truncate">
+                        <span className="text-sm max-w-sm w-5/12 truncate" title={data.map.subjects.find(
+                              (obj) => obj.value === subject.subject
+                            ).name}>
                           {
                             data.map.subjects.find(
                               (obj) => obj.value === subject.subject
@@ -141,7 +143,7 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
                         <span className="flex items-center space-x-2">
                           {/* <GiTeacher size={13} /> */}
                           <a
-                            className="text-sm font-extralight text-white hover:underline"
+                            className="text-xs sm:text-sm font-extralight text-white hover:underline"
                             href={`/dashboard/user/${subject.subjectTeacher._id}`}
                             target="_blank"
                           >
@@ -162,7 +164,7 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
               {sectionData.students && sectionData.students.length !== 0 ? (
                 <>
                   <h4 className="my-1 font-semibold">Students</h4>
-                  <div className="grid grid-cols-2 gap-4 ">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4">
                     {sectionData.students.map((student, i) => (
                       <a
                         className=" cursor-pointer flex items-center space-x-2 hover:bg-indigo-400 w-full rounded-full p-[0.4rem]"
@@ -172,7 +174,7 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
                         <Avatar user={student} size={4} path="/user/" />
                         <a
                           href={`/dashboard/user/${student._id}`}
-                          className="text-white"
+                          className="text-white text-xs sm:text-base"
                           target="_blank"
                         >
                           {student.firstName} {student.lastName}

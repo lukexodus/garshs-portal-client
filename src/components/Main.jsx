@@ -29,10 +29,11 @@ const Main = () => {
   //   ).name
   // }
 
+  document.title = `Dashboard`;
+
   useEffect(() => {
     if (data) {
-      document.title = `Dashboard`;
-
+      setIsLocalDataReady(true);
       axios
         .get("/api/v1/announcements", {
           params: {
@@ -61,12 +62,6 @@ const Main = () => {
         });
     }
   }, [refetch, data]);
-
-  useEffect(() => {
-    if (data) {
-      setIsLocalDataReady(true);
-    }
-  }, [data]);
 
   return (
     <>

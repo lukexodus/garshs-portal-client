@@ -82,6 +82,7 @@ const UserCard = ({
       <span className="mt-5">
         {action === "approve" ? (
           <>
+          <div className="flex space-x-2">
             <Button
               variant="primary"
               size="small"
@@ -98,6 +99,7 @@ const UserCard = ({
             >
               Reject
             </Button>
+          </div>
           </>
         ) : action === "remove" ? (
           <>
