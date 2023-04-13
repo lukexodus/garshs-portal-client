@@ -37,6 +37,7 @@ const inputReducer = (state, action) => {
 const Select = ({
   children,
   className,
+  containerClassName,
   variant = "secondary",
   size = "small",
   pill,
@@ -78,7 +79,7 @@ const Select = ({
     <span
       className={`${display === "block" ? "block" : "inline-block"} ${
         width ? width : ""
-      }`}
+      } ${containerClassName ? containerClassName : ""}`}
     >
       <select
         id={props.id}

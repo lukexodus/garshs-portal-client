@@ -70,7 +70,7 @@ const InventoryListByCategory = ({
               <p>No items found under this category</p>
             ) : (
               inventoryItems.map((item, i) => (
-                <li key={i} className="w-full 2xl:w-1/2">
+                <li key={i} className="w-full 2xl:w-[48.25%] 2xl:mx-2">
                   <InventoryItem
                     item={item}
                     inventoryItems={inventoryItems}

@@ -71,23 +71,23 @@ select {
 } */
 
 h1 {
-  @apply mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl;
+  @apply mb-4 text-3xl sm:text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl;
 }
 
 h2 {
-  @apply text-3xl font-extrabold;
+  @apply text-2xl sm:text-3xl font-extrabold;
 }
 
 h3 {
-  @apply text-2xl font-extrabold my-2;
+  @apply text-xl sm:text-2xl font-extrabold my-2;
 }
 
 h4 {
-  @apply text-xl font-medium my-3;
+  @apply text-lg sm:text-xl font-medium my-3;
 }
 
 h5 {
-  @apply text-lg font-medium my-2;
+  @apply text-base sm:text-lg font-medium my-2;
 }
 
 blockquote {

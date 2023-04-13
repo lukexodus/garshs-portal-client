@@ -305,7 +305,7 @@ const ReportCard = () => {
           </div>
           {(data.user.role === "student" && data.user._id === _id) ||
           data.user.role === "superadmin" ||
-          (data.user.role === "admin" &&
+          (adviser && data.user.role === "admin" &&
             !data.user.nonTeaching &&
             data.user._id !== adviser._id) ? (
             <div className="w-full flex flex-col space-y-12">

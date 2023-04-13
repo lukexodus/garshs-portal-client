@@ -402,7 +402,7 @@ const Auth = (props) => {
       });
   };
 
-  const inputClassName = "max-w-[14.5rem] sm:max-w-xs font-light text-xs";
+  const inputClassName = "max-w-[13rem] sm:max-w-[14.5rem] sm:max-w-xs font-light text-xs";
 
   return (
     <div className="xl:min-h-full bg-indigo-600 flex xl:grid xl:grid-cols-5">
@@ -418,7 +418,7 @@ const Auth = (props) => {
       </div>
 
       <div className="w-full xl:w-auto flex items-start xl:items-center justify-center flex-none py-10 px-8 sm:px-16 xl:pl-0 xl:pr-16 xl:pt-16 2xl:pr-20 xl:col-span-2">
-        <div className="max-w-xl w-full  bg-white text-sm text-gray-900 p-8 rounded-xl shadow-sm xs:w-4/5 min-w-2/3">
+        <div className="max-w-xl w-full bg-white text-sm text-gray-900 py-7 sm:py-10 px-6 sm:px-16 rounded-xl shadow-sm xs:w-4/5 min-w-2/3">
           {isInResetPasswordMode ? (
             <span
               className="flex space-x-1 items-center group mb-3"
@@ -593,7 +593,8 @@ const Auth = (props) => {
                         onSelect={midInputHandler}
                         display="inline-block"
                         disabled={isNonTeaching}
-                        className="w-auto mx-1"
+                        className="w-auto mx-1 max-w-full truncate"
+                        containerClassName="max-w-full truncate"
                         variant="simple"
                         size="small"
                       />
@@ -607,7 +608,7 @@ const Auth = (props) => {
                         onSelect={midInputHandler}
                         display="inline-block"
                         disabled={isNonTeaching}
-                        className="w-autoo mx-1"
+                        className="w-auto mx-1"
                         variant="simple"
                         size="small"
                       />
