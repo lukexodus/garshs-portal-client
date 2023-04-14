@@ -122,6 +122,7 @@ const AddPost = ({
   };
 
   const postHandler = async () => {
+    setIsReadyToSubmit(false);
     setToast({icon: "check", message: "Posting..."});
     if (editorStateRef.current) {
       formState.inputs.body.value = JSON.stringify(editorStateRef.current);
@@ -159,8 +160,6 @@ const AddPost = ({
     }
 
     if (hasImages) {
-      setIsReadyToSubmit(false);
-
       try {
         console.log("fetching");
         const res = await axios.get("/api/v1/data", {
@@ -183,8 +182,6 @@ const AddPost = ({
               return;
             }
           }
-
-          setIsReadyToSubmit(true);
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
         }
@@ -224,6 +221,7 @@ const AddPost = ({
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
         }
+        setIsReadyToSubmit(true);
       })
       .catch((error) => {
         console.log("Failed to add post");
@@ -331,6 +329,7 @@ const AddPost = ({
                 event.preventDefault();
                 postHandler();
               }}
+              disabled={!isReadyToSubmit}
             >
               <MdPostAdd size={18} /> Post
             </Button>

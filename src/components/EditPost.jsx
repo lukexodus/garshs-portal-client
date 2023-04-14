@@ -197,8 +197,6 @@ const EditPost = ({
               return;
             }
           }
-
-          setIsReadyToSubmit(true);
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
         }
@@ -242,6 +240,7 @@ const EditPost = ({
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
         }
+        setIsReadyToSubmit(true);
       })
       .catch((error) => {
         console.log("Failed to update post");
