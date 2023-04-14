@@ -180,7 +180,12 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
                         <span className="font-mono text-xl">
                           {
                             attendanceRecords
-                              .filter((record) => record.userId !== adviser._id)
+                              .filter((record) => {
+                                if (adviser) {
+                                  return record.userId !== adviser._id;
+                                }
+                                return true
+                              })
                               .filter((record) => record.title === "present")
                               .length
                           }
