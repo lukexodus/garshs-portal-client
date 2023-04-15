@@ -204,8 +204,8 @@ blockquote {
   background: #fff;
   position: relative;
   display: block;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .editor-shell .editor-container.tree-view {
@@ -213,8 +213,8 @@ blockquote {
 }
 
 .editor-shell .editor-container.plain-text {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .editor-scroller {
@@ -1499,8 +1499,8 @@ button.action-button:disabled {
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   vertical-align: middle;
   overflow: auto;
   position: sticky;

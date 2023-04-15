@@ -11,6 +11,7 @@ import Announcements from "./Announcements";
 import Requirements from "./Requirements";
 import Activities from "./Activities";
 import Students from "./Students";
+import Lessons from "./Lessons";
 import axios from "axios";
 
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -20,7 +21,6 @@ const SubjectClass = () => {
   const params = useParams();
   const section = params?.section;
   const subject = params?.subject;
-  console.log(section, subject);
 
   const { setToast } = useToast();
   const { data } = useData();
@@ -53,8 +53,13 @@ const SubjectClass = () => {
   const [activitiesRefetch, setActivitiesRefetch] = useState(false);
   const [startActivitiesRefetch, setStartActivitiesRefetch] = useState(false);
 
+  const [lessonTitles, setLessonTitles] = useState([]);
+  const [isLessonTitlesReady, setIsLessonTitlesReady] = useState(false);
+  const [lessonTitlesRefetch, setLessonTitlesRefetch] = useState(false);
+
   const [isStatusReportOpen, setIsStatusReportOpen] = useState(false);
   const [isScoresReportOpen, setIsScoresReportOpen] = useState(false);
+  const [isLessonViewOpen, setIsLessonViewOpen] = useState(false);
 
   const [navigateSubject, setNavigateSubject] = useState(false);
 
@@ -92,6 +97,33 @@ const SubjectClass = () => {
         });
     }
   }, [announcementsRefetch, data, navigateSubject]);
+
+  useEffect(() => {
+    if (data) {
+      axios
+        .get("/api/v1/lessons", {
+          params: {
+            subject,
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            console.log(`res.data`, res.data);
+            setLessonTitles(res.data.lessons);
+            setIsLessonTitlesReady(true);
+          } else {
+            setToast({
+              message: "Failed to fetch lesson titles",
+              icon: "cross",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("(Fetch lesson titles) An error occured.");
+          console.error(err);
+        });
+    }
+  }, [lessonTitlesRefetch, data, navigateSubject]);
 
   useEffect(() => {
     if (data) {
@@ -425,11 +457,6 @@ const SubjectClass = () => {
                   isScoresReportOpen={isScoresReportOpen}
                   setIsScoresReportOpen={setIsScoresReportOpen}
                 />
-                <Students
-                  students={students}
-                  isStudentsReady={isStudentsReady}
-                  section={section}
-                />
               </div>
             ) : data.user.role === "student" ? (
               <div className={contentStyle}>
@@ -463,15 +490,24 @@ const SubjectClass = () => {
                   isScoresReportOpen={isScoresReportOpen}
                   setIsScoresReportOpen={setIsScoresReportOpen}
                 />
-                <Students
-                  students={students}
-                  isStudentsReady={isStudentsReady}
-                  section={section}
-                />
               </div>
             ) : (
               <></>
             )}
+            <Lessons
+              lessonTitles={lessonTitles}
+              isLessonTitlesReady={isLessonTitlesReady}
+              setRefetch={setLessonTitlesRefetch}
+              isLessonViewOpen={isLessonViewOpen}
+              setIsLessonViewOpen={setIsLessonViewOpen}
+              setLessonTitles={setLessonTitles}
+              params={params}
+            />
+            <Students
+              students={students}
+              isStudentsReady={isStudentsReady}
+              section={section}
+            />
           </div>
         </>
       ) : (

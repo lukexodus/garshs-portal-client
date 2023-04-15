@@ -70,7 +70,7 @@ const Reader = ({ editorState, ...props }) => {
         },
       }}
     >
-      <div className={`editor-container`}>
+      <div className={`editor-container ${props.className ? props.className : ""}`}>
         <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />

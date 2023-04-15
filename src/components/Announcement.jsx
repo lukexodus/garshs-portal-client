@@ -24,7 +24,7 @@ const bgColors = {
   white: "bg-white",
 };
 
-const Announcement = ({ announcement, bgBehindColor, ...props }) => {
+const Announcement = ({ announcement, bgBehindColor, setRefetch, ...props }) => {
   const { data } = useData();
 
   const { setPopupModal } = usePopupModal();
@@ -108,11 +108,7 @@ const Announcement = ({ announcement, bgBehindColor, ...props }) => {
       .then((res) => {
         if (res.data.success) {
           setToast({ message: res.data.msg, icon: "check", lifetime: 5000 });
-          props.setAnnouncements(
-            props.announcements.filter(
-              (announcementItem) => announcementItem._id !== announcement._id
-            )
-          );
+          setRefetch((prev) => !prev);
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
         }

@@ -12,6 +12,7 @@ const Announcements = ({
   isAnnouncementsReady,
   user,
   mode,
+  setRefetch,
   ...props
 }) => {
   const { setCustomModal } = useCustomModal();
@@ -37,7 +38,7 @@ const Announcements = ({
               setCustomModal(
                 <AddAnnouncement
                   mode={mode}
-                  setRefetch={props.setRefetch}
+                  setRefetch={setRefetch}
                   params={props.params}
                 />
               );
@@ -66,6 +67,7 @@ const Announcements = ({
                     announcement={announcement}
                     user={user}
                     announcements={announcements}
+                    setRefetch={setRefetch}
                     setAnnouncements={props.setAnnouncements}
                   />
                 </li>
