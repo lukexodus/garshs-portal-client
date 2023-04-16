@@ -17,8 +17,8 @@ import {
   TbBusinessplan,
   TbShoppingCartDiscount,
 } from "react-icons/tb";
-import { BiAtom, BiStats } from "react-icons/bi";
-import { FaDumbbell, FaMoneyBillWave } from "react-icons/fa";
+import { BiAtom, BiStats, BiConversation } from "react-icons/bi";
+import { FaDumbbell, FaMoneyBillWave, FaPalette } from "react-icons/fa";
 import { IoIosPeople, IoIosPaper } from "react-icons/io";
 import { HiBeaker } from "react-icons/hi";
 import {
@@ -48,17 +48,11 @@ import { VscSymbolOperator, VscCircuitBoard } from "react-icons/vsc";
 import PhilippineFlag from "../components/svgs/PhilippineFlag";
 import CPAR from "../components/svgs/CPAR";
 
-// MdLandslide
-// IoStatsChart
-// TbMathPiDivide2
-
 export const subjectIcons = {
   earthScience: <GiEarthSpit />,
   philosophy: <GiThink />,
   generalMathematics: <TbMathSymbols />,
-  komunikasyonAtPananaliksik: (
-    <PhilippineFlag className="w-4 h-4 fill-current" />
-  ),
+  komunikasyonAtPananaliksik: <BiConversation />,
   precalculus: <TbMathMin />,
   oralCommunication: <GiPublicSpeaker />,
   generalChemistry1: <BiAtom />,
@@ -85,7 +79,7 @@ export const subjectIcons = {
   principlesOfMarketing: <TbShoppingCartDiscount />,
   fundamentalsOfABM1: <GiSellCard />,
   fundamentalsOfABM2: <GiBuyCard />,
-  cpar: <CPAR className="w-4 h-4 fill-current" />,
+  cpar: <FaPalette />,
   mil: <TfiLayoutMediaRight />,
   ucspSTEM: <IoIosPeople />,
   ucspABM: <IoIosPeople />,
@@ -110,11 +104,7 @@ export const subjectIconsForSidebar = {
   earthScience: <GiEarthSpit />,
   philosophy: <GiThink />,
   generalMathematics: <TbMathSymbols />,
-  komunikasyonAtPananaliksik: (
-    <span className={customIconContainerClassName}>
-      <PhilippineFlag className={customIconClassName} />
-    </span>
-  ),
+  komunikasyonAtPananaliksik: <BiConversation />,
   precalculus: <TbMathMin />,
   oralCommunication: <GiPublicSpeaker />,
   generalChemistry1: <BiAtom />,
@@ -141,11 +131,7 @@ export const subjectIconsForSidebar = {
   principlesOfMarketing: <TbShoppingCartDiscount />,
   fundamentalsOfABM1: <GiSellCard />,
   fundamentalsOfABM2: <GiBuyCard />,
-  cpar: (
-    <span className={customIconContainerClassName}>
-      <CPAR className={customIconClassName} />
-    </span>
-  ),
+  cpar: <FaPalette />,
   mil: <TfiLayoutMediaRight />,
   ucspSTEM: <IoIosPeople />,
   ucspABM: <IoIosPeople />,
