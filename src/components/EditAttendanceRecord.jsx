@@ -14,6 +14,8 @@ const EditAttendanceRecord = ({ record, _id, ...props }) => {
   const { setCustomModal } = useCustomModal();
   const { data } = useData();
 
+  console.log("record", record);
+
   const date = new Date(record.start);
   const options = { month: "short", day: "numeric", year: "numeric" };
   // hour: 'numeric', minute: 'numeric'

@@ -64,21 +64,14 @@ const ScanAttendance = () => {
 
   useEffect(() => {
     if (lastScannedCode) {
-      console.log({
-        _id: sanitizeString(lastScannedCode),
-        status: "present",
-        date: currentDate.toLocaleDateString(),
-        time: timeString,
-      });
       axios
         .patch(
           "/api/v1/attendance/record",
           {
             _id: lastScannedCode,
-            status: "present",
-            date: currentDate.toLocaleDateString(),
+            status: true,
+            date: currentDate,
             time: timeString,
-            returnData: true,
           },
           {
             headers: {

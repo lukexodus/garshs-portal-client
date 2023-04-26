@@ -208,7 +208,7 @@ const SettingsAttendance = () => {
                   setFromDay(exclusion.target.value);
                 }}
                 value={fromDay}
-                className="transition ease-in-out duration-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block max-w-[7rem] p-[0.625rem]"
+                className="transition ease-in-out duration-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block max-w-[9rem] p-[0.625rem]"
               />
             </div>
             <div className="flex flex-col space-y-1">
@@ -233,7 +233,7 @@ const SettingsAttendance = () => {
                   setToDay(exclusion.target.value);
                 }}
                 value={toDay}
-                className="transition ease-in-out duration-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block max-w-[7rem] p-[0.625rem]"
+                className="transition ease-in-out duration-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block max-w-[9rem] p-[0.625rem]"
               />
             </div>
           </div>
