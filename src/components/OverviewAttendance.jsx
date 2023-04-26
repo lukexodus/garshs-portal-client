@@ -54,6 +54,7 @@ const OverviewAttendance = () => {
       return { type: "section", section, i };
     });
     if (
+      data.user.adviseeSection &&
       !sectionGroups.find(
         (sectionObj) => sectionObj.section === data.user.adviseeSection
       )
