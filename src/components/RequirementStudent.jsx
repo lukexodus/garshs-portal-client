@@ -33,6 +33,7 @@ const RequirementStudent = ({
           userId,
           section,
           subject,
+          passedDateTime: new Date(),
         },
         {
           headers: {

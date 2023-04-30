@@ -203,9 +203,27 @@ const RequirementStatusReport = ({
                   `${
                     studentStatusObj.passed
                       ? studentStatusObj.confirmedPassed
-                        ? "Passed"
-                        : "Passed (Unconfirmed)"
-                      : "Not passed"
+                        ? studentStatusObj.passedDateTime
+                          ? `Passed on ${new Date(
+                              studentStatusObj.passedDateTime
+                            ).toLocaleString("en-US", options)} (${
+                              new Date(studentStatusObj.passedDateTime) >
+                              new Date(deadlineDateTime)
+                                ? `Late`
+                                : `On Time`
+                            })`
+                          : `Passed`
+                        : studentStatusObj.passedDateTime
+                        ? `Passed on ${new Date(
+                            studentStatusObj.passedDateTime
+                          ).toLocaleString("en-US", options)} (${
+                            new Date(studentStatusObj.passedDateTime) >
+                            new Date(deadlineDateTime)
+                              ? `Late`
+                              : `On Time`
+                          }) (Unconfirmed)`
+                        : `Passed (Unconfirmed)`
+                      : "Not yet passed"
                   }`,
                   lastCell,
                 ];
