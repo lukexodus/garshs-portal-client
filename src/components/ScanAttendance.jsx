@@ -26,8 +26,7 @@ const ScanAttendance = () => {
     axios
       .get("/api/v1/attendance/day", {
         params: {
-          // date: currentDate.toLocaleDateString(),
-          date: "2023-04-10",
+          date: currentDate.toLocaleDateString(),
         },
       })
       .then((res) => {

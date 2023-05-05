@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
 import { MdOutlineAdd } from "react-icons/md";
+import { BiExport } from "react-icons/bi";
 import { useCustomModal } from "./contexts/CustomModalContext";
 import Spinner from "./Spinner";
 import ButtonGroup from "./ButtonGroup";
@@ -7,11 +8,11 @@ import { useData } from "./contexts/DataContext";
 import AddActivity from "./AddActivity";
 import ActivityAdmin from "./ActivityAdmin";
 import ActivityStudent from "./ActivityStudent";
-// import ActivitiesScoresReport from "./ActivitiesScoresReport";
 
 const ActivitiesScoresReport = lazy(() => import("./ActivitiesScoresReport"));
 
 import { BiBookReader } from "react-icons/bi";
+import SelectActivitiesExport from "./SelectActivitiesExport";
 
 const tabs = [
   {
@@ -42,9 +43,6 @@ const Activities = ({
   const user = data.user;
   const [activity, setActivitiy] = useState({});
 
-  // useEffect(() => {
-  //   console.log("isActivitiesReady", isActivitiesReady);
-  // }, [isActivitiesReady]);
 
   return (
     <div
@@ -60,20 +58,36 @@ const Activities = ({
           <span>Activities</span>
         </h2>
         {user.role === "admin" && !user.nonTeaching ? (
-          <span
-            className="flex items-center hover:underline"
-            onClick={() => {
-              setCustomModal(
-                <AddActivity
-                  setRefetch={setRefetch}
-                  params={params}
-                  setIsScoresReportOpen={setIsScoresReportOpen}
-                />
-              );
-            }}
-          >
-            <MdOutlineAdd size={20} className="text-white" />
-            <h5 className="my-0">Add Activity</h5>
+          <span className="flex space-x-5 items-center">
+            <span
+              className="flex items-center hover:underline space-x-1"
+              onClick={() => {
+                setCustomModal(
+                  <SelectActivitiesExport
+                    section={params.section}
+                    subject={params.subject}
+                  />
+                );
+              }}
+            >
+              <BiExport size={18} className="text-white" />
+              <h5 className="my-0">Export</h5>
+            </span>
+            <span
+              className="flex items-center hover:underline"
+              onClick={() => {
+                setCustomModal(
+                  <AddActivity
+                    setRefetch={setRefetch}
+                    params={params}
+                    setIsScoresReportOpen={setIsScoresReportOpen}
+                  />
+                );
+              }}
+            >
+              <MdOutlineAdd size={20} className="text-white" />
+              <h5 className="my-0">Add Activity</h5>
+            </span>
           </span>
         ) : (
           <></>

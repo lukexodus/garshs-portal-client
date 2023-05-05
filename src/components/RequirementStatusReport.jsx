@@ -21,7 +21,7 @@ const RequirementStatusReport = ({
   const [isRequirementStatusReportReady, setIsRequirementStatusReportReady] =
     useState(false);
   const [shouldRender, setShouldRender] = useState(false);
-  const [usersToBeUpdatedIdsLength, setusersToBeUpdatedIdsLength] = useState(0);
+  const [usersToBeUpdatedIdsLength, setUsersToBeUpdatedIdsLength] = useState(0);
 
   const options = {
     month: "short",
@@ -45,7 +45,7 @@ const RequirementStatusReport = ({
     } else {
       usersToBeUpdatedIds.splice(usersToBeUpdatedIds.indexOf(studentId), 1);
     }
-    setusersToBeUpdatedIdsLength(usersToBeUpdatedIds.length);
+    setUsersToBeUpdatedIdsLength(usersToBeUpdatedIds.length);
     setShouldRender(!shouldRender);
   };
 
@@ -108,7 +108,7 @@ const RequirementStatusReport = ({
         console.error(err);
       })
       .finally(() => {
-        setusersToBeUpdatedIdsLength(0);
+        setUsersToBeUpdatedIdsLength(0);
         usersToBeUpdatedIds = [];
         setIsRequirementStatusReportReady(true);
       });
@@ -182,16 +182,16 @@ const RequirementStatusReport = ({
         {isRequirementStatusReportReady ? (
           <>
             <Table
-              headersList={["Name", "Status", "Select"]}
+              headersList={["Name", "Status", "Attachments", "Select"]}
               itemsList={requirementDoc.statusReport.map((studentStatusObj) => {
                 const lastCell =
                   studentStatusObj.passed &&
                   studentStatusObj.confirmedPassed ? (
-                    "Confirmed"
+                    `Confirmed`
                   ) : (
                     <input
                       type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                      className="w-4 h-4"
                       onClick={(event) =>
                         selectHandler(event, studentStatusObj._id)
                       }
@@ -225,6 +225,41 @@ const RequirementStatusReport = ({
                         : `Passed (Unconfirmed)`
                       : "Not yet passed"
                   }`,
+                  <span className="flex flex-col space-y-2">
+                    {studentStatusObj.files.length === 0 &&
+                    studentStatusObj.links.length === 0 ? (
+                      <span className="">No attachments</span>
+                    ) : (
+                      ""
+                    )}
+                    {studentStatusObj.files &&
+                    studentStatusObj.files.length !== 0 ? (
+                      <ul className="flex flex-col space-y-2">
+                        {studentStatusObj.files.map((filename, i) => (
+                          <a
+                            href={`/requirements/${section}/${subject}/${filename}`}
+                            key={i}
+                          >
+                            {filename}
+                          </a>
+                        ))}
+                      </ul>
+                    ) : (
+                      ""
+                    )}
+                    {studentStatusObj.links &&
+                    studentStatusObj.links.length !== 0 ? (
+                      <ul className="flex flex-col space-y-2">
+                        {studentStatusObj.links.map((link, i) => (
+                          <a href={"https://" + link} key={i}>
+                            {link}
+                          </a>
+                        ))}
+                      </ul>
+                    ) : (
+                      ""
+                    )}
+                  </span>,
                   lastCell,
                 ];
               })}

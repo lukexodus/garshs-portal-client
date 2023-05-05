@@ -402,7 +402,8 @@ const Auth = (props) => {
       });
   };
 
-  const inputClassName = "max-w-[13rem] sm:max-w-[14.5rem] sm:max-w-xs font-light text-xs";
+  const inputClassName =
+    "max-w-[13rem] sm:max-w-[14.5rem] sm:max-w-xs font-light text-xs";
 
   return (
     <div className="xl:min-h-full bg-indigo-600 flex xl:grid xl:grid-cols-5">
@@ -827,4 +828,3 @@ const Auth = (props) => {
 };
 
 export default Auth;
-

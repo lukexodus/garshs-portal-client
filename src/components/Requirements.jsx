@@ -9,8 +9,10 @@ import ButtonGroup from "./ButtonGroup";
 import { useData } from "./contexts/DataContext";
 
 import { BsCardChecklist } from "react-icons/bs";
+import { BiExport } from "react-icons/bi";
 
 const RequirementStatusReport = lazy(() => import("./RequirementStatusReport"));
+import SelectRequirementsExport from "./SelectRequirementsExport";
 
 const adminTabs = [
   {
@@ -73,20 +75,36 @@ const Requirements = ({
           <span>Requirements</span>
         </h2>
         {user.role === "admin" && !user.nonTeaching ? (
-          <span
-            className="flex items-center hover:underline"
-            onClick={() => {
-              setCustomModal(
-                <AddRequirement
-                  setRefetch={setRefetch}
-                  params={params}
-                  setIsStatusReportOpen={setIsStatusReportOpen}
-                />
-              );
-            }}
-          >
-            <MdOutlineAdd size={20} className="text-white" />
-            <h5 className="my-0">Add Requirement</h5>
+          <span className="flex space-x-5 items-center">
+            <span
+              className="flex items-center hover:underline space-x-1"
+              onClick={() => {
+                setCustomModal(
+                  <SelectRequirementsExport
+                    section={params.section}
+                    subject={params.subject}
+                  />
+                );
+              }}
+            >
+              <BiExport size={18} className="text-white" />
+              <h5 className="my-0">Export</h5>
+            </span>
+            <span
+              className="flex items-center hover:underline"
+              onClick={() => {
+                setCustomModal(
+                  <AddRequirement
+                    setRefetch={setRefetch}
+                    params={params}
+                    setIsStatusReportOpen={setIsStatusReportOpen}
+                  />
+                );
+              }}
+            >
+              <MdOutlineAdd size={20} className="text-white" />
+              <h5 className="my-0">Add Requirement</h5>
+            </span>
           </span>
         ) : (
           <></>

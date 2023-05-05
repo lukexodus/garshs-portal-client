@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useToast } from './contexts/ToastContext';
-import { usePopupModal } from './contexts/PopupModalContext';
-import ButtonGroup from './ButtonGroup';
-import ContentFallbackCards1 from './ContentFallbackCards1'
-import { useData } from './contexts/DataContext';
-import axios from 'axios';
-import UserCard from './UserCard';
-import Table from './Table';
-import Button from './Button';
+import React, { useState, useEffect } from "react";
+import { useToast } from "./contexts/ToastContext";
+import { usePopupModal } from "./contexts/PopupModalContext";
+import ButtonGroup from "./ButtonGroup";
+import ContentFallbackCards1 from "./ContentFallbackCards1";
+import { useData } from "./contexts/DataContext";
+import axios from "axios";
+import UserCard from "./UserCard";
+import Table from "./Table";
+import Button from "./Button";
 
 let usersToBeDeletedDocs = [];
 
@@ -16,14 +16,14 @@ const categories = [
         name: "Admins",
         value: "admin",
     },
-    {
-        name: "Parents",
-        value: "parent",
-    },
+  // {
+  //     name: "Parents",
+  //     value: "parent",
+  // },
     {
         name: "Students",
         value: "student",
-    }
+    },
 ]
 
 const ManageUsers = () => {
@@ -139,10 +139,6 @@ const ManageUsers = () => {
                                 if ((typeof sectionsTabulation[section]) === 'undefined') {
                                     sectionsTabulation[section] = [subject];
                                 } else {
-console.log("sectionsTabulation", sectionsTabulation);
-console.log("section", section);
-console.log("subject", subject);
-console.log("userDoc", userDoc);
                                     if (!sectionsTabulation[section].includes(subject)) {
                                         sectionsTabulation[section].push(subject)
                                     }

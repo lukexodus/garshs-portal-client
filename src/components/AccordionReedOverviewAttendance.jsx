@@ -184,7 +184,7 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
                                 if (adviser) {
                                   return record.userId !== adviser._id;
                                 }
-                                return true
+                                return true;
                               })
                               .filter((record) => record.title === "present")
                               .length

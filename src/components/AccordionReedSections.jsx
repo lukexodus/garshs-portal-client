@@ -12,7 +12,7 @@ import { useToast } from "./contexts/ToastContext";
 import { subjectIconsForSidebar } from "../config/icons";
 import { addSwipeUpListener } from "./utils/swipe";
 
-const AccordionReed = ({ section, i, isLast, ...props }) => {
+const AccordionReedSections = ({ section, i, isLast, ...props }) => {
   const { data } = useData();
   const { setToast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
@@ -89,7 +89,7 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
               <>
                 <span className="text-sm font-light flex space-x-2 items-center mr-3">
                   <FaChalkboardTeacher className="hidden sm:block" />
-                  <span className="">
+                  <span className="text-xs sm:text-base">
                     {section.adviser.firstName} {section.adviser.lastName}
                   </span>
                 </span>
@@ -129,11 +129,18 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
                 <div className="flex flex-col space-y-2 divide-y-[1px] divide-gray-300 divide-opacity-30">
                   {sectionData.subjects.map((subject, i) => (
                     <span className="flex space-x-2 items-center pt-2 ">
-                      <span className="hidden sm:block">{subjectIconsForSidebar[subject.subject]}</span>
+                      <span className="hidden sm:block">
+                        {subjectIconsForSidebar[subject.subject]}
+                      </span>
                       <span className="flex items-center justify-between w-full max-w-full truncate">
-                        <span className="text-sm max-w-sm w-5/12 truncate" title={data.map.subjects.find(
+                        <span
+                          className="text-sm max-w-sm w-5/12 truncate"
+                          title={
+                            data.map.subjects.find(
                               (obj) => obj.value === subject.subject
-                            ).name}>
+                            ).name
+                          }
+                        >
                           {
                             data.map.subjects.find(
                               (obj) => obj.value === subject.subject
@@ -196,4 +203,4 @@ const AccordionReed = ({ section, i, isLast, ...props }) => {
   );
 };
 
-export default AccordionReed;
+export default AccordionReedSections;

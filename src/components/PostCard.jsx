@@ -41,10 +41,8 @@ const PostCard = ({
   const { setToast } = useToast();
 
   useEffect(() => {
-    console.log("add dropdown items effect run")
     if (data) {
       if (data.user._id === post.author._id) {
-        console.log("user is the author of the post")
         setDropdownOptions(
           dropdownOptions.concat([
             {

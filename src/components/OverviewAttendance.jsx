@@ -26,7 +26,6 @@ const OverviewAttendance = () => {
   const [adviser, setAdviser] = useState(null);
 
   useEffect(() => {
-    console.log("fetch attendance status")
     axios
       .get("/api/v1/attendance/status")
       .then((res) => {
@@ -71,7 +70,6 @@ const OverviewAttendance = () => {
 
   useEffect(() => {
     if (data.user.role === "student") {
-      console.log("fetch attendance overview for student");
       axios
         .get("/api/v1/attendance/overview", {
           params: {
@@ -220,7 +218,7 @@ const OverviewAttendance = () => {
               )}
               {data.user.role === "admin" || data.user.role === "superadmin" ? (
                 <div className="flex items-start justify-center flex-col space-y-10 xl:grid xl:grid-cols-2 xl:space-y-0 xl:gap-7 w-full">
-                  {!data.user.nonTeaching ? (
+                  {!data.user.nonTeaching || data.user.role === "superadmin" ? (
                     <div className="w-full flex flex-col space-y-6">
                       <h2>Sections</h2>
                       <AccordionOverviewAttendance groups={sectionGroups} />

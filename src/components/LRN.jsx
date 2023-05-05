@@ -120,23 +120,23 @@ const LRN = (props) => {
           placeholder="100000000001
 100000000002"
         />
-<div className="flex space-x-3 mt-4">
-        <Button
-          size="small"
-          type="submit"
-          onClick={(event) => submitHandler(event, "add")}
-        >
-          Add
-        </Button>
-        <Button
-          size="small"
-          variant="danger"
-          type="submit"
-          onClick={(event) => submitHandler(event, "remove")}
-        >
-          Remove
-        </Button>
-</div>
+        <div className="flex space-x-3 mt-4">
+          <Button
+            size="small"
+            type="submit"
+            onClick={(event) => submitHandler(event, "add")}
+          >
+            Add
+          </Button>
+          <Button
+            size="small"
+            variant="danger"
+            type="submit"
+            onClick={(event) => submitHandler(event, "remove")}
+          >
+            Remove
+          </Button>
+        </div>
         <br />
 
         <br />

@@ -4,8 +4,6 @@ import Student from "./Student";
 import Spinner from "./Spinner";
 
 const Students = ({ students, isStudentsReady, section, ...props }) => {
-  console.log("students in component", students);
-
   return (
     <div
       className={`flex flex-col space-y-4 ${

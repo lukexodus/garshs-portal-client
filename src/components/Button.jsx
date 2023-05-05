@@ -7,6 +7,7 @@ const classes = {
   pill: "rounded-full",
   size: {
     small: "px-2 py-1 text-sm rounded-md",
+    semiSmall: "px-3 py-2 text-sm rounded-md",
     smallResponsive: "px-1 py-1 md:px-2 md:py-1 text-sm rounded-md",
     normal: "px-3 sm:px-5 py-[0.625rem] text-xs sm:text-sm rounded-lg",
     withIcon: "py-2 px-3 text-sm rounded-lg",
@@ -35,7 +36,6 @@ const Button = forwardRef(
       size = "normal",
       pill,
       disabled = false,
-      shouldRender,
       ...props
     },
     ref

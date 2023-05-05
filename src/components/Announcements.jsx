@@ -67,8 +67,8 @@ const Announcements = ({
                     announcement={announcement}
                     user={user}
                     announcements={announcements}
-                    setRefetch={setRefetch}
                     setAnnouncements={props.setAnnouncements}
+                    setRefetch={setRefetch}
                   />
                 </li>
               ))}

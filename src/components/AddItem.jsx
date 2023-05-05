@@ -4,7 +4,6 @@ import { useToast } from "./contexts/ToastContext";
 import Input from "./Input";
 import Button from "./Button";
 import Select from "./Select";
-import { useData } from "./contexts/DataContext";
 import axios from "axios";
 import { useCustomModal } from "./contexts/CustomModalContext";
 import Loading from "./Loading";
@@ -31,7 +30,6 @@ const validateForm = (formState) => {
 };
 
 const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
-  const { data } = useData();
   const { setToast } = useToast();
   const { setCustomModal } = useCustomModal();
 
@@ -164,7 +162,6 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
 
   const submitHandler = () => {
     const processedFormState = processFormState(formState.inputs);
-    console.log("processedFormState", processedFormState);
 
     const validationMsg = validateForm(processedFormState);
     if (validationMsg) {

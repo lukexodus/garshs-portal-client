@@ -1,0 +1,223 @@
+import React, { useState, useEffect } from "react";
+import Button from "./Button";
+import Table from "./Table";
+import { useToast } from "./contexts/ToastContext";
+import Loading from "./Loading";
+import axios from "axios";
+import { useCustomModal } from "./contexts/CustomModalContext";
+import ExcelJS from "exceljs";
+
+let requirementsToBeExported: string[] = [];
+
+const options = {
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+};
+
+const SelectRequirementsExport = ({ section, subject, ...props }) => {
+  const [requirementDocs, setRequirementDocs] = useState([]);
+  const [isRequirementsListReady, setIsRequirementsListReady] = useState(false);
+  const [requirementsToBeExportedLength, setRequirementsToBeExportedLength] =
+    useState(0);
+  const [render, setRender] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const { setToast } = useToast();
+  const { setCustomModal } = useCustomModal();
+
+  const selectHandler = (event, id: string) => {
+    if (event.target.checked) {
+      requirementsToBeExported.push(id);
+    } else {
+      requirementsToBeExported.splice(requirementsToBeExported.indexOf(id), 1);
+    }
+    setRequirementsToBeExportedLength(requirementsToBeExported.length);
+    setRender(!render);
+  };
+
+  const generateFile = () => {
+    setIsProcessing(true);
+
+    axios
+      .get("/api/v1/requirements", {
+        params: {
+          section,
+          subject,
+          mode: "statusReports",
+          requirementIds: requirementsToBeExported,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          const requirementDocs = res.data.requirementDocs;
+          setToast({ message: res.data.msg, icon: "check", lifetime: 7000 });
+          const workbook = new ExcelJS.Workbook();
+          const sheet = workbook.addWorksheet("First Sheet", {
+            views: [{ state: "frozen", xSplit: 1, ySplit: 1 }],
+          });
+          let columns = [{ header: "Student", key: "student", width: 10 }];
+
+          for (let requirement of requirementDocs) {
+            columns.push({
+              header: requirement.requirement,
+              key: requirement._id,
+              width: 10,
+            });
+          }
+
+          sheet.columns = columns;
+
+          const studentObjs = requirementDocs[0].statusReport.map((report) => [
+            report._id,
+            `${report.lastName}, ${report.firstName}`,
+          ]);
+
+          const rows = [];
+
+          for (const [studentId, name] of studentObjs) {
+            let rowObj = { student: name };
+            for (let requirementDoc of requirementDocs) {
+              const deadlineDateTime = requirementDoc.deadlineDateTime;
+              const studentReport = requirementDoc.statusReport.find(
+                (report: string) => report._id === studentId
+              );
+              rowObj[requirementDoc._id] = studentReport.passed
+                ? studentReport.confirmedPassed
+                  ? studentReport.passedDateTime
+                    ? `Passed on ${new Date(
+                        studentReport.passedDateTime
+                      ).toLocaleString("en-US", options)} (${
+                        new Date(studentReport.passedDateTime) >
+                        new Date(deadlineDateTime)
+                          ? `Late`
+                          : `On Time`
+                      })`
+                    : `Passed`
+                  : studentReport.passedDateTime
+                  ? `Passed on ${new Date(
+                      studentReport.passedDateTime
+                    ).toLocaleString("en-US", options)} (${
+                      new Date(studentReport.passedDateTime) >
+                      new Date(deadlineDateTime)
+                        ? `Late`
+                        : `On Time`
+                    }) (Unconfirmed)`
+                  : `Passed (Unconfirmed)`
+                : "Not yet passed";
+            }
+
+            console.log(rowObj);
+            rows.push(rowObj);
+          }
+
+          sheet.addRows(rows);
+
+          workbook.xlsx.writeBuffer().then((buffer) => {
+            const blob = new Blob([buffer], {
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            });
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `Requirements ${new Date().toLocaleString(
+              "en-US",
+              options
+            )}.xlsx`;
+            document.body.appendChild(link);
+            link.click();
+
+            URL.revokeObjectURL(url);
+          });
+
+          setCustomModal(null);
+        } else {
+          setToast({ message: res.data.msg, icon: "cross" });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setRequirementsToBeExportedLength(0);
+        requirementsToBeExported = [];
+        setIsProcessing(false);
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/requirements", {
+        params: {
+          mode: "list",
+          section,
+          subject,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setRequirementDocs(res.data.requirementDocs);
+          setIsRequirementsListReady(true);
+          console.log("res.data.requirementDocs", res.data.requirementDocs);
+        } else {
+          setToast({
+            message: "Failed to fetch requirements list  report",
+            icon: "cross",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("(Fetch requirements list report) An error occured.");
+        console.error(err);
+      });
+  }, []);
+
+  return (
+    <div className="text-gray-900">
+      {isRequirementsListReady ? (
+        <form className="flex flex-col space-y-4 justify-center items-center">
+          <h3 className="text-xl font-medium w-full">
+            Select Which Requirement Data to Export
+          </h3>
+          <Table
+            headersList={["Requirement", "Select"]}
+            itemsList={requirementDocs.map((requirementDoc) => {
+              return [
+                requirementDoc.requirement,
+                <input
+                  type="checkbox"
+                  className="w-4 h-4"
+                  onClick={(event) => selectHandler(event, requirementDoc._id)}
+                />,
+              ];
+            })}
+            className="w-full"
+          />
+          {isProcessing ? (
+            <Loading />
+          ) : (
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => {
+                generateFile();
+              }}
+              disabled={requirementsToBeExportedLength === 0}
+              className="w-min"
+              size="semiSmall"
+            >
+              Generate&nbsp;and&nbsp;Download&nbsp;File
+            </Button>
+          )}
+        </form>
+      ) : (
+        <Loading />
+      )}
+    </div>
+  );
+};
+
+export default SelectRequirementsExport;

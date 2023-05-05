@@ -14,14 +14,10 @@ const EditAttendanceRecord = ({ record, _id, ...props }) => {
   const { setCustomModal } = useCustomModal();
   const { data } = useData();
 
-  console.log("record", record);
-
   const date = new Date(record.start);
   const options = { month: "short", day: "numeric", year: "numeric" };
   // hour: 'numeric', minute: 'numeric'
   const dateTimeString = date.toLocaleString("en-US", options);
-  const [isRecordReady, setIsRecordReady] = useState(false);
-  const [recordDoc, setRecordDoc] = useState(false);
 
   const [formState, inputHandler, setFormData] = useForm({
     status: { value: record.title.toLowerCase() === "present" },
@@ -29,31 +25,6 @@ const EditAttendanceRecord = ({ record, _id, ...props }) => {
     date: { value: record.start },
     _id: { value: _id },
   });
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/v1/attendance/record", {
-  //       params: {
-  //         date: record.start,
-  //         _id,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.success) {
-  //         setIsRecordReady(
-  //           true
-  //         );
-  //         setRecordDoc(res.data.record)
-  //       } else {
-  //         setToast({ message: res.data.msg, icon: "cross" });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log("Failed to fetch attendance record");
-  //       console.error(err);
-  //       setToast({ message: "Failed to fetch attendance record", icon: "cross" });
-  //     });
-  // }, [])
 
   useUpdateEffect(() => {
     if (formState.inputs.status.value === false) {
@@ -71,7 +42,6 @@ const EditAttendanceRecord = ({ record, _id, ...props }) => {
       });
     }
 
-    console.log("processedFormState", processedFormState);
 
     setToast(null);
 

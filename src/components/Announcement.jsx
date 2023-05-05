@@ -24,7 +24,12 @@ const bgColors = {
   white: "bg-white",
 };
 
-const Announcement = ({ announcement, bgBehindColor, setRefetch, ...props }) => {
+const Announcement = ({
+  announcement,
+  bgBehindColor,
+  setRefetch,
+  ...props
+}) => {
   const { data } = useData();
 
   const { setPopupModal } = usePopupModal();

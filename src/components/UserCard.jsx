@@ -82,24 +82,24 @@ const UserCard = ({
       <span className="mt-5">
         {action === "approve" ? (
           <>
-          <div className="flex space-x-2">
-            <Button
-              variant="primary"
-              size="small"
-              type="button"
-              onClick={() => primaryHandler(account)}
-            >
-              Approve
-            </Button>
-            <Button
-              variant="secondary"
-              size="small"
-              type="button"
-              onClick={() => secondaryHandler(account)}
-            >
-              Reject
-            </Button>
-          </div>
+            <div className="flex space-x-2">
+              <Button
+                variant="primary"
+                size="small"
+                type="button"
+                onClick={() => primaryHandler(account)}
+              >
+                Approve
+              </Button>
+              <Button
+                variant="secondary"
+                size="small"
+                type="button"
+                onClick={() => secondaryHandler(account)}
+              >
+                Reject
+              </Button>
+            </div>
           </>
         ) : action === "remove" ? (
           <>

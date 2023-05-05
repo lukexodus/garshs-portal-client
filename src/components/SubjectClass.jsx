@@ -242,10 +242,6 @@ const SubjectClass = () => {
   const getActivitiesEffectRan = useRef(false);
 
   useEffect(() => {
-    console.log("activitiesTab", activitiesTab);
-    console.log("data", data);
-    console.log("startActivitiesRefetch", startActivitiesRefetch);
-    console.log("         ");
     if (getActivitiesEffectRan.current === true || NODE_ENV !== "development") {
       if (data) {
         if (activitiesTab === "upcoming" && upcomingActivities) {

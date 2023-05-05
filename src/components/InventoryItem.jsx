@@ -121,7 +121,7 @@ const InventoryItem = ({ item, ...props }) => {
 
   return (
     <div
-      className={`bg-[#5355e0] shadow-lg  rounded-lg px-3 sm:px-4 py-4 sm:py-5 2xl:mr-4 2xl:mb-4 flex group w-full ${
+      className={`bg-[#5355e0] shadow-lg rounded-lg px-3 sm:px-4 py-4 sm:py-5 2xl:mr-4 2xl:mb-4 flex group w-full ${
         props.className ? props.className : ""
       }`}
     >

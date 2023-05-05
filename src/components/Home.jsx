@@ -42,7 +42,6 @@ const tabs = [
 ];
 
 const Home = ({ ...props }) => {
-  // document.title = "GARSHS Portal | Home";
   const [isAddPostOpen, setIsAddPostOpen] = useState(false);
   const [canAddPost, setCanAddPost] = useState(false);
   const [previousLastId, setPreviousLastId] = useState(null);

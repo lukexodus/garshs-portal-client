@@ -19,16 +19,6 @@ const Main = () => {
 
   const [isLocalDataReady, setIsLocalDataReady] = useState(false);
 
-  // | ${
-  //   data.map.sections.find((obj) => obj.value === data.user.section).name
-  // }
-
-  // | ${
-  //   data.map.sections.find(
-  //     (obj) => obj.value === data.user.adviseeSection
-  //   ).name
-  // }
-
   document.title = `Dashboard`;
 
   useEffect(() => {

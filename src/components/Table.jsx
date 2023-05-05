@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const Table = ({ headersList, itemsList, state, stateHandler, ...props }) => {
+const Table = ({ headersList, itemsList, ...props }) => {
   return (
     <div
       className={`relative overflow-x-auto shadow-md sm:rounded-lg ${

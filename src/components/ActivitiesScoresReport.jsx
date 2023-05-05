@@ -59,7 +59,6 @@ const ActivitiesScoresReport = ({
     dispatch({ type: "CHANGE", studentId, score });
   };
 
-  let initialScores = {};
 
   useEffect(() => {
     axios
@@ -79,7 +78,6 @@ const ActivitiesScoresReport = ({
 
           for (const studentScoreObj of res.data.activityDoc.scoresReport) {
             setStudentScore(studentScoreObj._id, studentScoreObj.score);
-            // initialScores[studentScoreObj._id] = studentScoreObj.score;
           }
         } else {
           setToast({
