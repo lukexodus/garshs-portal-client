@@ -3,31 +3,18 @@ import { useData } from "./contexts/DataContext";
 import LinkButton from "./LinkButton";
 import PageFallback1 from "./PageFallback1";
 import { useToast } from "./contexts/ToastContext";
-import { useCustomModal } from "./contexts/CustomModalContext";
 import axios from "axios";
 import Announcements from "./Announcements";
 import Events from "./Events";
-import useUpdateEffect from "./hooks/useUpdateEffect";
 
 const Main = () => {
   const { setToast } = useToast();
   const { data } = useData();
-  const { setCustomModal } = useCustomModal();
   const [announcements, setAnnouncements] = useState([]);
   const [isAnnouncementsReady, setIsAnnouncementsReady] = useState(false);
   const [refetch, setRefetch] = useState(false);
 
   const [isLocalDataReady, setIsLocalDataReady] = useState(false);
-
-  // | ${
-  //   data.map.sections.find((obj) => obj.value === data.user.section).name
-  // }
-
-  // | ${
-  //   data.map.sections.find(
-  //     (obj) => obj.value === data.user.adviseeSection
-  //   ).name
-  // }
 
   document.title = `Dashboard`;
 
