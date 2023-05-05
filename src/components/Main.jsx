@@ -3,16 +3,13 @@ import { useData } from "./contexts/DataContext";
 import LinkButton from "./LinkButton";
 import PageFallback1 from "./PageFallback1";
 import { useToast } from "./contexts/ToastContext";
-import { useCustomModal } from "./contexts/CustomModalContext";
 import axios from "axios";
 import Announcements from "./Announcements";
 import Events from "./Events";
-import useUpdateEffect from "./hooks/useUpdateEffect";
 
 const Main = () => {
   const { setToast } = useToast();
   const { data } = useData();
-  const { setCustomModal } = useCustomModal();
   const [announcements, setAnnouncements] = useState([]);
   const [isAnnouncementsReady, setIsAnnouncementsReady] = useState(false);
   const [refetch, setRefetch] = useState(false);
@@ -75,9 +72,7 @@ const Main = () => {
                 ) : (
                   <>
                     <div>
-                      <div>
-                        <h2>Manage</h2>
-                      </div>
+                      <h2>Manage</h2>
                       <div className="mt-4 flex flex-row flex-wrap">
                         <LinkButton
                           link="/dashboard/admin/requests"
@@ -91,9 +86,7 @@ const Main = () => {
               ) : data.user.role === "superadmin" ? (
                 <>
                   <div>
-                    <div>
-                      <h2>Manage</h2>
-                    </div>
+                    <h2>Manage</h2>
                     <div className="py-4 flex flex-row flex-wrap">
                       <LinkButton
                         link="/dashboard/superadmin/sections"
@@ -113,6 +106,31 @@ const Main = () => {
               ) : (
                 <></>
               )}
+              <div>
+                <h2>Links</h2>
+                <div className="mt-4 flex flex-row flex-wrap">
+                  <ul className="list-disc list-inside flex flex-col space-y-3">
+                    <li>
+                      <a
+                        href="https://forms.gle/xn9G5sn2EYowtiC87"
+                        target="_blank"
+                        className="text-blue-100 underline"
+                      >
+                        Website User Acceptance Test Survey
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://forms.gle/gFu9av8LT98VKMsC6"
+                        target="_blank"
+                        className="text-blue-100 underline"
+                      >
+                        Error/Bug Report
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <Announcements
                 announcements={announcements}
                 isAnnouncementsReady={isAnnouncementsReady}
