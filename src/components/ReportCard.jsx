@@ -38,7 +38,6 @@ const ReportCard = () => {
   const [firstSemSubjects, setFirstSemSubjects] = useState([]);
   const [secondSemSubjects, setSecondSemSubjects] = useState([]);
   const [student, setStudent] = useState(null);
-  const [authorized, setAuthorized] = useState(true);
   const [adviser, setAdviser] = useState(null);
 
   const [isLocalDataReady, setIsLocalDataReady] = useState(false);
@@ -177,91 +176,137 @@ const ReportCard = () => {
   const [isQ3Initialized, setIsQ3Initialized] = useState(false);
   const [isQ4Initialized, setIsQ4Initialized] = useState(false);
 
+  const [firstSemSubjectsExistsState, setFirstSemSubjectsExistsState] =
+    useState(false);
+  const [secondSemSubjectsExistsState, setSecondSemSubjectsExistsState] =
+    useState(false);
+
   useUpdateEffect(() => {
     if (isGradesReady) {
-      let q1Grades = [];
-      let q2Grades = [];
-      let q3Grades = [];
-      let q4Grades = [];
-      for (const firstSemSubject of Object.keys(gradesState.q1)) {
-        q1Grades.push(
-          gradesState.q1[firstSemSubject] ? gradesState.q1[firstSemSubject] : 0
-        );
-        q2Grades.push(
-          gradesState.q2[firstSemSubject] ? gradesState.q2[firstSemSubject] : 0
-        );
-      }
-      for (const secondSemSubject of Object.keys(gradesState.q3)) {
-        q3Grades.push(
-          gradesState.q3[secondSemSubject]
-            ? gradesState.q3[secondSemSubject]
-            : 0
-        );
-        q4Grades.push(
-          gradesState.q4[secondSemSubject]
-            ? gradesState.q4[secondSemSubject]
-            : 0
-        );
-      }
-      const q1Average = average(q1Grades);
-      const q2Average = average(q2Grades);
-      const q3Average = average(q3Grades);
-      const q4Average = average(q4Grades);
-      const q1Initialized = !q1Grades.every((value) => value === 0);
-      const q2Initialized = !q2Grades.every((value) => value === 0);
-      const q3Initialized = !q3Grades.every((value) => value === 0);
-      const q4Initialized = !q4Grades.every((value) => value === 0);
-      setIsQ1Initialized(q1Initialized);
-      setIsQ2Initialized(q2Initialized);
-      setIsQ3Initialized(q3Initialized);
-      setIsQ4Initialized(q4Initialized);
-      setQ1FinalGrade(q1Average);
-      setQ2FinalGrade(q2Average);
-      setQ3FinalGrade(q3Average);
-      setQ4FinalGrade(q4Average);
-
+      let q1Initialized;
+      let q2Initialized;
+      let q3Initialized;
+      let q4Initialized;
       let firstSemFinalGradeNum;
       let secondSemFinalGradeNum;
 
-      if (q1Initialized && q2Initialized) {
-        firstSemFinalGradeNum = Number(
-          average([q1Average, q2Average]).toFixed(2)
-        );
-        setFirstSemFinalGrade(firstSemFinalGradeNum);
+      const firstSemSubjectsExist = Boolean(gradesState.q1);
+      const secondSemSubjectsExist = Boolean(gradesState.q3);
+      setFirstSemSubjectsExistsState(firstSemSubjectsExist);
+      setSecondSemSubjectsExistsState(secondSemSubjectsExist);
+
+      if (firstSemSubjectsExist) {
+        let q1Grades = [];
+        let q2Grades = [];
+        for (const firstSemSubject of Object.keys(gradesState.q1)) {
+          q1Grades.push(
+            gradesState.q1[firstSemSubject]
+              ? gradesState.q1[firstSemSubject]
+              : 0
+          );
+          q2Grades.push(
+            gradesState.q2[firstSemSubject]
+              ? gradesState.q2[firstSemSubject]
+              : 0
+          );
+        }
+        const q1Average = average(q1Grades);
+        const q2Average = average(q2Grades);
+        q1Initialized = !q1Grades.every((value) => value === 0);
+        q2Initialized = !q2Grades.every((value) => value === 0);
+        setIsQ1Initialized(q1Initialized);
+        setIsQ2Initialized(q2Initialized);
+        setQ1FinalGrade(q1Average);
+        setQ2FinalGrade(q2Average);
+
+        if (q1Initialized && q2Initialized) {
+          firstSemFinalGradeNum = Number(
+            average([q1Average, q2Average]).toFixed(2)
+          );
+          setFirstSemFinalGrade(firstSemFinalGradeNum);
+        }
       }
-      if (q3Initialized && q4Initialized) {
-        secondSemFinalGradeNum = Number(
-          average([q3Average, q4Average]).toFixed(2)
-        );
-        setSecondSemFinalGrade(secondSemFinalGradeNum);
+
+      if (secondSemSubjectsExist) {
+        let q3Grades = [];
+        let q4Grades = [];
+        for (const secondSemSubject of Object.keys(gradesState.q3)) {
+          q3Grades.push(
+            gradesState.q3[secondSemSubject]
+              ? gradesState.q3[secondSemSubject]
+              : 0
+          );
+          q4Grades.push(
+            gradesState.q4[secondSemSubject]
+              ? gradesState.q4[secondSemSubject]
+              : 0
+          );
+        }
+
+        const q3Average = average(q3Grades);
+        const q4Average = average(q4Grades);
+        q3Initialized = !q3Grades.every((value) => value === 0);
+        q4Initialized = !q4Grades.every((value) => value === 0);
+        setIsQ3Initialized(q3Initialized);
+        setIsQ4Initialized(q4Initialized);
+        setQ3FinalGrade(q3Average);
+        setQ4FinalGrade(q4Average);
+
+        if (q3Initialized && q4Initialized) {
+          secondSemFinalGradeNum = Number(
+            average([q3Average, q4Average]).toFixed(2)
+          );
+          setSecondSemFinalGrade(secondSemFinalGradeNum);
+        }
       }
-      if (q1Initialized && q2Initialized && q3Initialized && q4Initialized) {
+
+      if (
+        firstSemSubjectsExist &&
+        secondSemSubjectsExist &&
+        q1Initialized &&
+        q2Initialized &&
+        q3Initialized &&
+        q4Initialized
+      ) {
         setFinalGrade(average([firstSemFinalGradeNum, secondSemFinalGradeNum]));
       }
     }
   }, [isGradesReady, gradesState]);
 
   const submitReportCardHandler = () => {
-    if (finalGrade) {
+    if (
+      firstSemSubjectsExistsState &&
+      secondSemSubjectsExistsState &&
+      finalGrade
+    ) {
       gradesState.finalGrade = finalGrade;
     }
-    if (firstSemFinalGrade) {
-      gradesState.firstSemFinalGrade = firstSemFinalGrade;
+
+    if (firstSemSubjectsExistsState) {
+      if (firstSemFinalGrade) {
+        gradesState.firstSemFinalGrade = firstSemFinalGrade;
+      }
+
+      if (q1FinalGrade) {
+        gradesState.q1FinalGrade = q1FinalGrade;
+      }
+
+      if (q2FinalGrade) {
+        gradesState.q2FinalGrade = q2FinalGrade;
+      }
     }
-    if (secondSemFinalGrade) {
-      gradesState.secondSemFinalGrade = secondSemFinalGrade;
-    }
-    if (q1FinalGrade) {
-      gradesState.q1FinalGrade = q1FinalGrade;
-    }
-    if (q2FinalGrade) {
-      gradesState.q2FinalGrade = q2FinalGrade;
-    }
-    if (q3FinalGrade) {
-      gradesState.q3FinalGrade = q3FinalGrade;
-    }
-    if (q4FinalGrade) {
-      gradesState.q4FinalGrade = q4FinalGrade;
+
+    if (secondSemSubjectsExistsState) {
+      if (secondSemFinalGrade) {
+        gradesState.secondSemFinalGrade = secondSemFinalGrade;
+      }
+
+      if (q3FinalGrade) {
+        gradesState.q3FinalGrade = q3FinalGrade;
+      }
+      if (q4FinalGrade) {
+        gradesState.q4FinalGrade = q4FinalGrade;
+      }
     }
 
     axios
@@ -305,77 +350,87 @@ const ReportCard = () => {
           </div>
           {(data.user.role === "student" && data.user._id === _id) ||
           data.user.role === "superadmin" ||
-          (adviser && data.user.role === "admin" &&
+          (adviser &&
+            data.user.role === "admin" &&
             !data.user.nonTeaching &&
             data.user._id !== adviser._id) ? (
             <div className="w-full flex flex-col space-y-12">
-              <div className="flex flex-col space-y-6">
-                <h3 className="my-1">1st Semester</h3>
-                <Table
-                  headersList={["Subject", "Q1", "Q2"]}
-                  itemsList={[...firstSemSubjects, { subject: "FINAL" }].map(
-                    (subject, i) => {
-                      if (i === firstSemSubjects.length) {
+              {firstSemSubjectsExistsState ? (
+                <div className="flex flex-col space-y-6">
+                  <h3 className="my-1">1st Semester</h3>
+                  <Table
+                    headersList={["Subject", "Q1", "Q2"]}
+                    itemsList={[...firstSemSubjects, { subject: "FINAL" }].map(
+                      (subject, i) => {
+                        if (i === firstSemSubjects.length) {
+                          return [
+                            "FINAL",
+                            <span>{Number(q1FinalGrade.toFixed(2))}</span>,
+                            <span>{Number(q2FinalGrade.toFixed(2))}</span>,
+                          ];
+                        }
                         return [
-                          "FINAL",
-                          <span>{Number(q1FinalGrade.toFixed(2))}</span>,
-                          <span>{Number(q2FinalGrade.toFixed(2))}</span>,
+                          <span className="">
+                            {
+                              data.map.subjects.find(
+                                (obj) => obj.value === subject
+                              ).name
+                            }
+                          </span>,
+                          gradesState.q1[subject] ? gradesState.q1[subject] : 0,
+                          gradesState.q2[subject] ? gradesState.q2[subject] : 0,
                         ];
                       }
-                      return [
-                        <span className="">
-                          {
-                            data.map.subjects.find(
-                              (obj) => obj.value === subject
-                            ).name
-                          }
-                        </span>,
-                        gradesState.q1[subject],
-                        gradesState.q2[subject],
-                      ];
-                    }
+                    )}
+                    className="w-full"
+                  />
+                  {isQ1Initialized && isQ2Initialized ? (
+                    <span>
+                      1st Semester Final Grade: <b>{firstSemFinalGrade}</b>
+                    </span>
+                  ) : (
+                    <></>
                   )}
-                  className="w-full"
-                />
-                {isQ1Initialized && isQ2Initialized ? (
-                  <span>
-                    1st Semester Final Grade: <b>{firstSemFinalGrade}</b>
-                  </span>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="flex flex-col space-y-6">
-                <h3 className="my-1">2nd Semester</h3>
-                <Table
-                  headersList={["Subject", "Q3", "Q4"]}
-                  itemsList={[...secondSemSubjects, { subject: "FINAL" }].map(
-                    (subject, i) => {
-                      if (i === secondSemSubjects.length) {
+                </div>
+              ) : (
+                <div>No subjects yet for the first semester</div>
+              )}
+              {secondSemSubjectsExistsState ? (
+                <div className="flex flex-col space-y-6">
+                  <h3 className="my-1">2nd Semester</h3>
+                  <Table
+                    headersList={["Subject", "Q3", "Q4"]}
+                    itemsList={[...secondSemSubjects, { subject: "FINAL" }].map(
+                      (subject, i) => {
+                        if (i === secondSemSubjects.length) {
+                          return [
+                            "FINAL",
+                            <span>{Number(q3FinalGrade.toFixed(2))}</span>,
+                            <span>{Number(q4FinalGrade.toFixed(2))}</span>,
+                          ];
+                        }
                         return [
-                          "FINAL",
-                          <span>{Number(q3FinalGrade.toFixed(2))}</span>,
-                          <span>{Number(q4FinalGrade.toFixed(2))}</span>,
+                          data.map.subjects.find((obj) => obj.value === subject)
+                            .name,
+                          gradesState.q3[subject] ? gradesState.q3[subject] : 0,
+                          gradesState.q4[subject] ? gradesState.q4[subject] : 0,
                         ];
                       }
-                      return [
-                        data.map.subjects.find((obj) => obj.value === subject)
-                          .name,
-                        gradesState.q3[subject],
-                        gradesState.q4[subject],
-                      ];
-                    }
+                    )}
+                    className="w-full"
+                  />
+                  {isQ3Initialized && isQ4Initialized ? (
+                    <span>
+                      2nd Semester Final Grade: <b>{secondSemFinalGrade}</b>
+                    </span>
+                  ) : (
+                    <></>
                   )}
-                  className="w-full"
-                />
-                {isQ3Initialized && isQ4Initialized ? (
-                  <span>
-                    2nd Semester Final Grade: <b>{secondSemFinalGrade}</b>
-                  </span>
-                ) : (
-                  <></>
-                )}
-              </div>
+                </div>
+              ) : (
+                <div>No subjects yet for the second semester</div>
+              )}
+
               {isQ1Initialized &&
               isQ2Initialized &&
               isQ3Initialized &&
@@ -389,149 +444,158 @@ const ReportCard = () => {
             </div>
           ) : data.user.role === "admin" && !data.user.nonTeaching ? (
             <div className="w-full flex flex-col space-y-12">
-              <div className="flex flex-col space-y-6">
-                <h3 className="my-1">1st Semester</h3>
-                <Table
-                  headersList={["Subject", "Q1", "Q2"]}
-                  itemsList={[...firstSemSubjects, { subject: "FINAL" }].map(
-                    (subject, i) => {
-                      if (i === firstSemSubjects.length) {
+              {firstSemSubjectsExistsState ? (
+                <div className="flex flex-col space-y-6">
+                  <h3 className="my-1">1st Semester</h3>
+                  <Table
+                    headersList={["Subject", "Q1", "Q2"]}
+                    itemsList={[...firstSemSubjects, { subject: "FINAL" }].map(
+                      (subject, i) => {
+                        if (i === firstSemSubjects.length) {
+                          return [
+                            "FINAL",
+                            <span>{Number(q1FinalGrade.toFixed(2))}</span>,
+                            <span>{Number(q2FinalGrade.toFixed(2))}</span>,
+                          ];
+                        }
                         return [
-                          "FINAL",
-                          <span>{Number(q1FinalGrade.toFixed(2))}</span>,
-                          <span>{Number(q2FinalGrade.toFixed(2))}</span>,
+                          <span className="">
+                            {
+                              data.map.subjects.find(
+                                (obj) => obj.value === subject
+                              ).name
+                            }
+                          </span>,
+                          <input
+                            id={`q1_${subject}`}
+                            name={`q1_${subject}`}
+                            type="number"
+                            onChange={(event) => {
+                              setStudentGrade(
+                                1,
+                                subject,
+                                parseInt(event.target.value)
+                              );
+                            }}
+                            value={
+                              gradesState.q1[subject]
+                                ? gradesState.q1[subject] > 0
+                                  ? gradesState.q1[subject]
+                                  : 0
+                                : 0
+                            }
+                            className={cellInputStyle}
+                          />,
+                          <input
+                            id={`q2_${subject}`}
+                            name={`q2_${subject}`}
+                            type="number"
+                            onChange={(event) => {
+                              setStudentGrade(
+                                2,
+                                subject,
+                                parseInt(event.target.value)
+                              );
+                            }}
+                            value={
+                              gradesState.q2[subject]
+                                ? gradesState.q2[subject] > 0
+                                  ? gradesState.q2[subject]
+                                  : 0
+                                : 0
+                            }
+                            className={cellInputStyle}
+                          />,
                         ];
                       }
-                      return [
-                        <span className="">
-                          {
-                            data.map.subjects.find(
-                              (obj) => obj.value === subject
-                            ).name
-                          }
-                        </span>,
-                        <input
-                          id={`q1_${subject}`}
-                          name={`q1_${subject}`}
-                          type="number"
-                          onChange={(event) => {
-                            setStudentGrade(
-                              1,
-                              subject,
-                              parseInt(event.target.value)
-                            );
-                          }}
-                          value={
-                            gradesState.q1[subject]
-                              ? gradesState.q1[subject] > 0
-                                ? gradesState.q1[subject]
-                                : 0
-                              : 0
-                          }
-                          className={cellInputStyle}
-                        />,
-                        <input
-                          id={`q2_${subject}`}
-                          name={`q2_${subject}`}
-                          type="number"
-                          onChange={(event) => {
-                            setStudentGrade(
-                              2,
-                              subject,
-                              parseInt(event.target.value)
-                            );
-                          }}
-                          value={
-                            gradesState.q2[subject]
-                              ? gradesState.q2[subject] > 0
-                                ? gradesState.q2[subject]
-                                : 0
-                              : 0
-                          }
-                          className={cellInputStyle}
-                        />,
-                      ];
-                    }
+                    )}
+                    className="w-full"
+                  />
+                  {isQ1Initialized && isQ2Initialized ? (
+                    <span>
+                      1st Semester Final Grade: <b>{firstSemFinalGrade}</b>
+                    </span>
+                  ) : (
+                    <></>
                   )}
-                  className="w-full"
-                />
-                {isQ1Initialized && isQ2Initialized ? (
-                  <span>
-                    1st Semester Final Grade: <b>{firstSemFinalGrade}</b>
-                  </span>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="flex flex-col space-y-6">
-                <h3 className="my-1">2nd Semester</h3>
-                <Table
-                  headersList={["Subject", "Q3", "Q4"]}
-                  itemsList={[...secondSemSubjects, { subject: "FINAL" }].map(
-                    (subject, i) => {
-                      if (i === secondSemSubjects.length) {
+                </div>
+              ) : (
+                <div>No subjects yet for the first semester</div>
+              )}
+              {secondSemSubjectsExistsState ? (
+                <div className="flex flex-col space-y-6">
+                  <h3 className="my-1">2nd Semester</h3>
+                  <Table
+                    headersList={["Subject", "Q3", "Q4"]}
+                    itemsList={[...secondSemSubjects, { subject: "FINAL" }].map(
+                      (subject, i) => {
+                        if (i === secondSemSubjects.length) {
+                          return [
+                            "FINAL",
+                            <span>{Number(q3FinalGrade.toFixed(2))}</span>,
+                            <span>{Number(q4FinalGrade.toFixed(2))}</span>,
+                          ];
+                        }
                         return [
-                          "FINAL",
-                          <span>{Number(q3FinalGrade.toFixed(2))}</span>,
-                          <span>{Number(q4FinalGrade.toFixed(2))}</span>,
+                          data.map.subjects.find((obj) => obj.value === subject)
+                            .name,
+                          <input
+                            id={`q3_${subject}`}
+                            name={`q3_${subject}`}
+                            type="number"
+                            onChange={(event) => {
+                              setStudentGrade(
+                                3,
+                                subject,
+                                parseInt(event.target.value)
+                              );
+                            }}
+                            value={
+                              gradesState.q3[subject]
+                                ? gradesState.q3[subject] > 0
+                                  ? gradesState.q3[subject]
+                                  : 0
+                                : 0
+                            }
+                            className={cellInputStyle}
+                          />,
+                          <input
+                            id={`q4_${subject}`}
+                            name={`q4_${subject}`}
+                            type="number"
+                            onChange={(event) => {
+                              setStudentGrade(
+                                4,
+                                subject,
+                                parseInt(event.target.value)
+                              );
+                            }}
+                            value={
+                              gradesState.q4[subject]
+                                ? gradesState.q4[subject] > 0
+                                  ? gradesState.q4[subject]
+                                  : 0
+                                : 0
+                            }
+                            className={cellInputStyle}
+                          />,
                         ];
                       }
-                      return [
-                        data.map.subjects.find((obj) => obj.value === subject)
-                          .name,
-                        <input
-                          id={`q3_${subject}`}
-                          name={`q3_${subject}`}
-                          type="number"
-                          onChange={(event) => {
-                            setStudentGrade(
-                              3,
-                              subject,
-                              parseInt(event.target.value)
-                            );
-                          }}
-                          value={
-                            gradesState.q3[subject]
-                              ? gradesState.q3[subject] > 0
-                                ? gradesState.q3[subject]
-                                : 0
-                              : 0
-                          }
-                          className={cellInputStyle}
-                        />,
-                        <input
-                          id={`q4_${subject}`}
-                          name={`q4_${subject}`}
-                          type="number"
-                          onChange={(event) => {
-                            setStudentGrade(
-                              4,
-                              subject,
-                              parseInt(event.target.value)
-                            );
-                          }}
-                          value={
-                            gradesState.q4[subject]
-                              ? gradesState.q4[subject] > 0
-                                ? gradesState.q4[subject]
-                                : 0
-                              : 0
-                          }
-                          className={cellInputStyle}
-                        />,
-                      ];
-                    }
+                    )}
+                    className="w-full"
+                  />
+                  {isQ3Initialized && isQ4Initialized ? (
+                    <span>
+                      2nd Semester Final Grade: <b>{secondSemFinalGrade}</b>
+                    </span>
+                  ) : (
+                    <></>
                   )}
-                  className="w-full"
-                />
-                {isQ3Initialized && isQ4Initialized ? (
-                  <span>
-                    2nd Semester Final Grade: <b>{secondSemFinalGrade}</b>
-                  </span>
-                ) : (
-                  <></>
-                )}
-              </div>
+                </div>
+              ) : (
+                <div>No subjects yet for the second semester</div>
+              )}
+
               {isQ1Initialized &&
               isQ2Initialized &&
               isQ3Initialized &&
