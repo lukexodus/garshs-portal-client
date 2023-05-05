@@ -97,7 +97,7 @@ const PasswordReset = () => {
   const inputClassName = "max-w-xs font-light text-xs";
 
   return (
-    <div className="w-full xl:w-auto flex items-start xl:items-center justify-center flex-none py-10  px-16 xl:pl-0 xl:pr-16 xl:pt-16  2xl:pr-20 xl:col-span-2">
+    <div className="w-full xl:w-auto flex items-start xl:items-center justify-center flex-none py-1 px-1 sm:py-3 sm:px-6 xl:pl-0 xl:pr-16 xl:pt-16  2xl:pr-20 xl:col-span-2">
       <div className="max-w-xl w-full  bg-white text-sm text-gray-900 p-8 rounded-xl shadow-sm xs:w-4/5 min-w-2/3">
         <h2 className="text-center pt-1 pb-3 md:pb-4 text-transparent bg-clip-text bg-gradient-to-l from-purple-600 to-sky-500 text-2xl md:text-3xl">
           Set New Password
