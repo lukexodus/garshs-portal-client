@@ -139,8 +139,12 @@ const ManageUsers = () => {
                                 if ((typeof sectionsTabulation[section]) === 'undefined') {
                                     sectionsTabulation[section] = [subject];
                                 } else {
+console.log("sectionsTabulation", sectionsTabulation);
+console.log("section", section);
+console.log("subject", subject);
+console.log("userDoc", userDoc);
                                     if (!sectionsTabulation[section].includes(subject)) {
-                                        sectionsTabulation[userDoc.section].push(subject)
+                                        sectionsTabulation[section].push(subject)
                                     }
                                 }
                             }
