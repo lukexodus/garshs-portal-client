@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useUpdateEffect from "./hooks/useUpdateEffect";
 import { useData } from "./contexts/DataContext";
 import { useToast } from "./contexts/ToastContext";
 import AccordionOverviewAttendance from "./AccordionOverviewAttendance";
@@ -82,7 +81,6 @@ const OverviewAttendance = () => {
             setUsers(res.data.users);
             setAttendanceRecords(res.data.attendanceRecords);
             setAdviser(res.data?.adviser);
-            console.log("res.data", res.data);
             setIsGroupDataReady(true);
           } else {
             setToast({

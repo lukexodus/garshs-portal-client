@@ -1,4 +1,4 @@
-import ReacAt, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useUpdateEffect from "./hooks/useUpdateEffect";
 import Loading from "./Loading";
 import { useToast } from "./contexts/ToastContext";
