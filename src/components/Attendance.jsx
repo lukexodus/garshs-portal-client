@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useUpdateEffect from "./hooks/useUpdateEffect";
 import Loading from "./Loading";
-import { useToast } from "./contexts/ToastContext";
 import { useData } from "./contexts/DataContext";
 import {
   BsFillCalendarCheckFill,
@@ -30,7 +28,6 @@ const options = [
 
 const Attendance = () => {
   document.title = `Attendance`;
-  const { setToast } = useToast();
   const { data } = useData();
   const [isLocalDataReady, setIsLocalDataReady] = useState(false);
   const [tab, setTab] = useState("overview");

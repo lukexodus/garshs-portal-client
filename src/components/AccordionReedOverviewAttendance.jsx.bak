@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Avatar from "./Avatar";
+import React, { useState } from "react";
 import { useData } from "./contexts/DataContext";
 import useUpdateEffect from "./hooks/useUpdateEffect";
 import { FaChalkboardTeacher, FaPeopleCarry } from "react-icons/fa";
@@ -7,14 +6,19 @@ import { RiAdminFill } from "react-icons/ri";
 import UserCardAttendance from "./UserCardAttendance";
 
 import SectionIcon from "./SectionIcon";
+import SelectUserExport from "./SelectUserExport";
 
 import Spinner from "./Spinner";
+import Button from "./Button";
 import axios from "axios";
 import { useToast } from "./contexts/ToastContext";
+import { useCustomModal } from "./contexts/CustomModalContext";
 
 const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
   const { data } = useData();
   const { setToast } = useToast();
+  const { setCustomModal } = useCustomModal();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [users, setUsers] = useState([]);
@@ -33,10 +37,9 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
         })
         .then((res) => {
           if (res.data.success) {
-            setUsers(res.data.users);
+            setUsers(res.data.users.sort((a, b) => a.lastName > b.lastName));
             setAttendanceRecords(res.data.attendanceRecords);
             setAdviser(res.data?.adviser);
-            console.log("res.data", res.data);
             setIsGroupDataReady(true);
           } else {
             setToast({
@@ -152,9 +155,13 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
         {isGroupDataReady ? (
           <div className="flex flex-col space-y-7">
             {users.length === 0 ? (
-              <span className="text-sm sm:text-base">There are no users in this group.</span>
+              <span className="text-sm sm:text-base">
+                There are no users in this group.
+              </span>
             ) : attendanceRecords.length === 0 ? (
-              <span className="text-sm sm:text-base">There are no classes for today.</span>
+              <span className="text-sm sm:text-base">
+                There are no classes for today.
+              </span>
             ) : (
               <>
                 {group.type === "section" ? (
@@ -184,7 +191,7 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
                                 if (adviser) {
                                   return record.userId !== adviser._id;
                                 }
-                                return true
+                                return true;
                               })
                               .filter((record) => record.title === "present")
                               .length
@@ -223,6 +230,22 @@ const AccordionReedOverviewAttendance = ({ group, i, isLast, ...props }) => {
                 )}
               </>
             )}
+            <Button
+              size="small"
+              variant="secondary"
+              className="w-auto self-end"
+              onClick={() => {
+                setCustomModal(
+                  <SelectUserExport
+                    type={group.type}
+                    section={group.section}
+                    users={users}
+                  />
+                );
+              }}
+            >
+              Export&nbsp;Data
+            </Button>
           </div>
         ) : (
           <Spinner bgColor="bg-indigo-500 " />
