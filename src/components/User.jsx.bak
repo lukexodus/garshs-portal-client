@@ -251,9 +251,9 @@ const User = () => {
                   <span>Vaccination Status:</span>
                   <span>
                     {
-                      vaccinationStatuses.find(
+                      healthInfo.vaccinationStatus ? vaccinationStatuses.find(
                         (obj) => obj.value === healthInfo.vaccinationStatus
-                      ).name
+                      ).name : '';
                     }
                   </span>
                 </div>

@@ -250,11 +250,14 @@ const User = () => {
                 <div className="flex items-center justify-between mr-5">
                   <span>Vaccination Status:</span>
                   <span>
-                    {
-                      healthInfo.vaccinationStatus ? vaccinationStatuses.find(
-                        (obj) => obj.value === healthInfo.vaccinationStatus
-                      ).name : '';
-                    }
+                    {healthInfo.vaccinationStatus ? (
+                      <>
+                        vaccinationStatuses.find( (obj) => obj.value ===
+                        healthInfo.vaccinationStatus ).name
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mr-5">
