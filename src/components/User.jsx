@@ -252,8 +252,11 @@ const User = () => {
                   <span>
                     {healthInfo.vaccinationStatus ? (
                       <>
-                        vaccinationStatuses.find( (obj) => obj.value ===
-                        healthInfo.vaccinationStatus ).name
+                        {
+                          vaccinationStatuses.find(
+                            (obj) => obj.value === healthInfo.vaccinationStatus
+                          ).name
+                        }
                       </>
                     ) : (
                       ""
