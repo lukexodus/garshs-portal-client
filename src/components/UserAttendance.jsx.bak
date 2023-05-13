@@ -87,10 +87,6 @@ const UserAttendance = () => {
       })
       .catch((err) => {
         console.log("Failed to fetch attendance records");
-        setToast({
-          icon: "cross",
-          message: "Failed to fetch attendance records",
-        });
         console.error(err);
       });
   };

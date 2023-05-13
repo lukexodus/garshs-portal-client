@@ -182,35 +182,43 @@ const SelectRequirementsExport = ({ section, subject, ...props }) => {
           <h3 className="text-xl font-medium w-full">
             Select Which Requirement Data to Export
           </h3>
-          <Table
-            headersList={["Requirement", "Select"]}
-            itemsList={requirementDocs.map((requirementDoc) => {
-              return [
-                requirementDoc.requirement,
-                <input
-                  type="checkbox"
-                  className="w-4 h-4"
-                  onClick={(event) => selectHandler(event, requirementDoc._id)}
-                />,
-              ];
-            })}
-            className="w-full"
-          />
-          {isProcessing ? (
-            <Loading />
+          {requirementDocs.length !== 0 ? (
+            <>
+              <Table
+                headersList={["Requirement", "Select"]}
+                itemsList={requirementDocs.map((requirementDoc) => {
+                  return [
+                    requirementDoc.requirement,
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4"
+                      onClick={(event) =>
+                        selectHandler(event, requirementDoc._id)
+                      }
+                    />,
+                  ];
+                })}
+                className="w-full"
+              />
+              {isProcessing ? (
+                <Loading />
+              ) : (
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={() => {
+                    generateFile();
+                  }}
+                  disabled={requirementsToBeExportedLength === 0}
+                  className="w-min"
+                  size="semiSmall"
+                >
+                  Generate&nbsp;and&nbsp;Download&nbsp;File
+                </Button>
+              )}
+            </>
           ) : (
-            <Button
-              variant="primary"
-              type="button"
-              onClick={() => {
-                generateFile();
-              }}
-              disabled={requirementsToBeExportedLength === 0}
-              className="w-min"
-              size="semiSmall"
-            >
-              Generate&nbsp;and&nbsp;Download&nbsp;File
-            </Button>
+            <>No data to be exported</>
           )}
         </form>
       ) : (

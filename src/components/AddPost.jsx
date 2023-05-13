@@ -122,8 +122,7 @@ const AddPost = ({
   };
 
   const postHandler = async () => {
-    setIsReadyToSubmit(false);
-    setToast({icon: "check", message: "Posting..."});
+    setToast({ icon: "check", message: "Posting..." });
     if (editorStateRef.current) {
       formState.inputs.body.value = JSON.stringify(editorStateRef.current);
     }
@@ -141,6 +140,7 @@ const AddPost = ({
       });
       return;
     }
+    setIsReadyToSubmit(false);
     if (imageFileInputRef.current) {
       processedFormState.images = imageFileInputRef.current.files;
     } else {

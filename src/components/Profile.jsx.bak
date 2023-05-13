@@ -22,7 +22,6 @@ import {
   isValidNumber,
 } from "../utils/utils";
 import { useCustomModal } from "./contexts/CustomModalContext";
-import { logout } from "../services/auth";
 
 const selectSex = "Sex";
 const selectVaccinationStatus = "Select vaccination status";
@@ -587,25 +586,6 @@ const Profile = () => {
       .catch((error) => {
         console.log("Failed to remove profile picture");
         console.error(error);
-      });
-  };
-
-  const deleteAccount = () => {
-    axios
-      .delete("/api/v1/users/user")
-      .then((res) => {
-        if (res.data.success) {
-          window.location.href = "/";
-          setToast({ message: res.data.msg, icon: "check", lifetime: 5000 });
-          logout();
-        } else {
-          setToast({ message: res.data.msg, icon: "cross" });
-        }
-      })
-      .catch((error) => {
-        console.log("Failed to delete user");
-        console.error(error);
-        setToast({ message: "Failed to delete account", icon: "cross" });
       });
   };
 
@@ -1276,30 +1256,6 @@ Anything :)"
                 inputHandler={healthInputHandler}
                 defaultState={healthInfoDefaultState}
               />
-            </div>
-            <div className={formContainerClassName}>
-              <h3 className="my-0">Delete Account</h3>
-              <div className="py-1">
-                <hr className="opacity-40" />
-              </div>
-              <Button
-                variant="danger"
-                size="small"
-                className="h-min"
-                onClick={() => {
-                  setPopupModal({
-                    message:
-                      "Are you sure you want to delete your account and all of your data? This action can't be reversed.",
-                    variant: "danger",
-                    primary: "Delete",
-                    handler: () => {
-                      deleteAccount();
-                    },
-                  });
-                }}
-              >
-                Delete My Account and All of My Data
-              </Button>
             </div>
           </div>
         </div>

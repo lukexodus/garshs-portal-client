@@ -101,6 +101,10 @@ const Auth = (props) => {
     section: { value: whatSection },
   });
 
+  const [stateDataState, stateInputHandler] = useForm({
+    agreedToTOUAndPP: { value: false },
+  });
+
   const formRef = useRef(null);
   const captchaRef = useRef(null);
 
@@ -118,6 +122,7 @@ const Auth = (props) => {
   const [subjects, setSubjects] = useState([]);
   const [isNonTeaching, setIsNonTeaching] = useState(false);
   const [stateDataMsg2, setStateDataMsg2] = useState(null);
+  const [agreedToTOUAndPP, setAgreedToTOUAndPP] = useState(false);
 
   const location = useLocation();
   let stateDataMsg;
@@ -242,6 +247,13 @@ const Auth = (props) => {
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
+
+    if (!isLoginMode && !isInResetPasswordMode && !stateDataState.inputs.agreedToTOUAndPP.value) {
+      setToast({
+        message: "You have not agreed to our Terms of Use and Privacy Policy",
+      });
+      return;
+    }
 
     if (formState.inputs.adviseeSection.value === selectAdviseeSection) {
       formState.inputs.adviseeSection.value = "";
@@ -770,14 +782,45 @@ const Auth = (props) => {
             )}
 
             {!isLoginMode && !isInResetPasswordMode ? (
-              <div className="pt-4">
-                <ReCAPTCHA
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  ref={captchaRef}
-                  className=""
-                  size="compact"
-                />
-              </div>
+              <>
+                <div className="pt-4">
+                  <Input
+                    id="agreedToTOUAndPP"
+                    name="agreedToTOUAndPP"
+                    element="input"
+                    type="checkbox"
+                    label={
+                      <span>
+                        &nbsp; I agree to the{" "}
+                        <a href="/terms-of-use" target="_blank">
+                          Terms of Use
+                          <wbr />
+                        </a>{" "}
+                        and{" "}
+                        <a href="privacy-policy" target="_blank">
+                          Privacy Policy
+                        </a>
+                      </span>
+                    }
+                    labelPosition="right"
+                    onInput={stateInputHandler}
+                    width="w-max"
+                    checked={agreedToTOUAndPP}
+                    containerClassName="w-max my-2"
+                    onClick={() => {
+                      setAgreedToTOUAndPP((prev) => !prev);
+                    }}
+                  />
+                </div>
+                <div className="">
+                  <ReCAPTCHA
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    ref={captchaRef}
+                    className=""
+                    size="compact"
+                  />
+                </div>
+              </>
             ) : (
               <></>
             )}
