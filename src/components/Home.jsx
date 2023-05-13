@@ -311,21 +311,39 @@ const Home = ({ ...props }) => {
       </div>
 
       {isPostsReady ? (
-        <div className="overflow-x-auto px-5 hidden lg:flex lg:flex-col lg:space-y-3 h-screen py-7 pr-6 lg:col-span-1 fixed right-0 max-h-screen overflow-y-auto">
-          {orgPostsCount
-            .sort((a, b) => b.count - a.count)
-            .map((orgPostCount, i) => (
-              <OrgButton
-                author={author}
-                setAuthor={setAuthor}
-                orgPostCount={orgPostCount}
-                mode="extended"
-                setPostsRefetchAfterModification={
-                  setPostsRefetchAfterModification
-                }
-                i={i}
-              />
-            ))}
+        <div className="overflow-x-auto px-5 hidden lg:flex lg:flex-col lg:justify-between h-screen py-7 pr-6 lg:col-span-1 fixed right-0 max-h-screen overflow-y-auto lg:w-1/3 2xl:w-1/4">
+          <div className="lg:flex lg:flex-col lg:space-y-3">
+            {orgPostsCount
+              .sort((a, b) => b.count - a.count)
+              .map((orgPostCount, i) => (
+                <OrgButton
+                  author={author}
+                  setAuthor={setAuthor}
+                  orgPostCount={orgPostCount}
+                  mode="extended"
+                  setPostsRefetchAfterModification={
+                    setPostsRefetchAfterModification
+                  }
+                  i={i}
+                />
+              ))}
+          </div>
+          <div className="absolute bottom-14 flex items-center justify-center w-full py-3 overflow-x-auto text-[0.7rem] space-x-5">
+            <a
+              className=" hover:underline cursor-pointer font-light text-gray-500"
+              href="/terms-of-use"
+              target="_blank"
+            >
+              Terms of Use
+            </a>
+            <a
+              className="text-[0.7rem] hover:underline cursor-pointer font-light text-gray-500"
+              href="/privacy-policy"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+          </div>
         </div>
       ) : (
         <></>

@@ -51,7 +51,6 @@ const SelectRequirementsExport = ({ section, subject, ...props }) => {
       })
       .then((res) => {
         if (res.data.success) {
-          console.log("res.data.requirementDocs", res.data.requirementDocs);
           const requirementDocs = res.data.requirementDocs;
           setToast({ message: res.data.msg, icon: "check", lifetime: 7000 });
           const workbook = new ExcelJS.Workbook();

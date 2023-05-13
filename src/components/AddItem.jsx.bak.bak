@@ -175,7 +175,6 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
       (placeDoc) => placeDoc.value
     );
 
-
     axios
       .post("/api/v1/inventory", JSON.stringify(processedFormState), {
         headers: {

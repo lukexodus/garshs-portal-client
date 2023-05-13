@@ -43,6 +43,7 @@ const Activities = ({
   const user = data.user;
   const [activity, setActivitiy] = useState({});
 
+
   return (
     <div
       className={`flex flex-col space-y-2 ${

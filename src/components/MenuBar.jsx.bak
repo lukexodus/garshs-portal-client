@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const burgerBarBaseStyle = "w-9 h-1 bg-indigo-700 rounded-lg";
 const burgerBarClickedStyle = "ease-out duration-500";
