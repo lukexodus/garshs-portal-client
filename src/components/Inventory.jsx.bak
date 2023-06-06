@@ -60,7 +60,7 @@ const Sections = () => {
               <span className="my-0 py-0">
                 <MdInventory2 />
               </span>
-              <span>Inventory | iTrack</span>
+              <span>Inventory</span>
             </h1>
             <ButtonGroup options={options} stateHandler={setTab} state={tab} />
           </div>
