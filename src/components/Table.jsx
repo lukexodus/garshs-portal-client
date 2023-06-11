@@ -7,7 +7,7 @@ const Table = ({ headersList, itemsList, ...props }) => {
         props.className ? props.className : ""
       }`}
     >
-      <table className="w-full text-sm text-left text-indigo-100">
+      <table className="w-full text-sm text-left text-indigo-100 max-h-[70vh] overflow-y-auto">
         <thead className="text-xs text-white uppercase bg-blue-500">
           <tr>
             {headersList.map((header, i) => (

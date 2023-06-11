@@ -57,6 +57,7 @@ const validateForm = (formState, isLoginMode) => {
     } else if (
       formState.role === "admin" &&
       !formState.nonTeaching &&
+      !formState.isCustodian &&
       !formState.subjectClasses
     ) {
       return fieldEmptyMsg;
@@ -94,6 +95,7 @@ const Auth = (props) => {
     subjectClasses: { value: {} },
     gradeLevel: { value: "" },
     nonTeaching: { value: "" },
+    isCustodian: { value: "" },
   });
 
   const [midDataState, midInputHandler] = useForm({
@@ -121,6 +123,7 @@ const Auth = (props) => {
   const [sections, setSections] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [isNonTeaching, setIsNonTeaching] = useState(false);
+  const [isCustodian, setIsCustodian] = useState(false);
   const [stateDataMsg2, setStateDataMsg2] = useState(null);
   const [agreedToTOUAndPP, setAgreedToTOUAndPP] = useState(false);
 
@@ -171,6 +174,7 @@ const Auth = (props) => {
         adviseeSection: { value: "" },
         subjectClasses: { value: {} },
         nonTeaching: { value: "" },
+        isCustodian: { value: "" },
       });
     } else if (role === "admin") {
       setFormData({
@@ -178,6 +182,7 @@ const Auth = (props) => {
         lrn: { value: 0 },
         section: { value: "" },
         nonTeaching: { value: isNonTeaching },
+        isCustodian: { value: isCustodian },
       });
     } else if (role === "parent") {
       setFormData({
@@ -186,6 +191,7 @@ const Auth = (props) => {
         adviseeSection: { value: "" },
         subjectClasses: { value: {} },
         nonTeaching: { value: "" },
+        isCustodian: { value: "" },
       });
     }
   }, [formState.inputs.role.value]);
@@ -194,6 +200,7 @@ const Auth = (props) => {
     setIsLoginMode((prev) => !prev);
     setToast(null);
     setIsNonTeaching(false);
+    setIsCustodian(false);
     if (isLoginMode) {
       setAuthRoute(`/api/v1/users/register`);
       // captchaRef.current.execute();
@@ -210,6 +217,7 @@ const Auth = (props) => {
         subjectClasses: { value: {} },
         gradeLevel: { value: "" },
         nonTeaching: { value: "" },
+        isCustodian: { value: "" },
       });
     }
   };
@@ -248,7 +256,11 @@ const Auth = (props) => {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (!isLoginMode && !isInResetPasswordMode && !stateDataState.inputs.agreedToTOUAndPP.value) {
+    if (
+      !isLoginMode &&
+      !isInResetPasswordMode &&
+      !stateDataState.inputs.agreedToTOUAndPP.value
+    ) {
       setToast({
         message: "You have not agreed to our Terms of Use and Privacy Policy",
       });
@@ -365,6 +377,7 @@ const Auth = (props) => {
               //     subjectClasses: { value: {} },
               //     gradeLevel: { value: '' },
               //     nonTeaching: { value: '' }
+              //     isCustodian: { value: '' }
               // })
             }
           }
@@ -711,6 +724,22 @@ const Auth = (props) => {
                     containerClassName="w-max my-2"
                     onClick={() => {
                       setIsNonTeaching((prev) => !prev);
+                    }}
+                  />
+                  <div className="py-1"></div>
+                  <Input
+                    id="isCustodian"
+                    name="isCustodian"
+                    element="input"
+                    type="checkbox"
+                    label="&nbsp;School custodian"
+                    labelPosition="right"
+                    onInput={inputHandler}
+                    width="w-max"
+                    checked={isCustodian}
+                    containerClassName="w-max my-2"
+                    onClick={() => {
+                      setIsCustodian((prev) => !prev);
                     }}
                   />
                   <div className="py-3">

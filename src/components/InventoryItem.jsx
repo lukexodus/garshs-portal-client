@@ -59,7 +59,7 @@ const InventoryItem = ({ item, ...props }) => {
 
     if (mode === "borrow") {
       message =
-        "Item borrowed successfully. Please wait for the approval of your borrow request.";
+        "Borrow request sent. Processing of your request may take at least 3 days. You'll be notified by email when your request will be approved or rejected. Please wait.";
     } else if (mode === "cancel") {
       message = "Borrow request canceled";
     } else if (mode === "return") {
@@ -90,7 +90,6 @@ const InventoryItem = ({ item, ...props }) => {
           setToast({
             message,
             icon: "check",
-            lifetime: 10000,
           });
           if (props.setRefetch) {
             props.setRefetch((prev) => !prev);

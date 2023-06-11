@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import { useToast } from "./contexts/ToastContext";
+import { useData } from "./contexts/DataContext";
 import Spinner from "./Spinner";
 import axios from "axios";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -36,6 +37,7 @@ const RequirementStatusReport = ({
   );
 
   const { setToast } = useToast();
+  const { data } = useData();
 
   const { section, subject } = params;
 
@@ -226,8 +228,10 @@ const RequirementStatusReport = ({
                       : "Not yet passed"
                   }`,
                   <span className="flex flex-col space-y-2">
-                    {studentStatusObj.files.length === 0 &&
-                    studentStatusObj.links.length === 0 ? (
+                    {(!studentStatusObj.files ||
+                      studentStatusObj.files.length === 0) &&
+                    (!studentStatusObj.links ||
+                      studentStatusObj.links.length === 0) ? (
                       <span className="">No attachments</span>
                     ) : (
                       ""
@@ -237,7 +241,7 @@ const RequirementStatusReport = ({
                       <ul className="flex flex-col space-y-2">
                         {studentStatusObj.files.map((filename, i) => (
                           <a
-                            href={`/requirements/${section}/${subject}/${filename}`}
+                            href={`/requirements/${data.user.schoolYear}/${section}/${subject}/${filename}`}
                             key={i}
                           >
                             {filename}
