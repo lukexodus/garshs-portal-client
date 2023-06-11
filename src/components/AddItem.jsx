@@ -67,6 +67,14 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
       .then((res) => {
         if (res.data.success) {
           setAdminUsers(res.data.users);
+          console.log("setting admin users");
+          formState.inputs.personInCharge.value = [
+            ...formState.inputs.personInCharge.value,
+            ...res.data.users.filter(
+              (adminObj) =>
+                adminObj.isCustodian && adminObj.isCustodian === true
+            ),
+          ];
           setIsAdminUsersReady(true);
         } else {
           setToast({ message: res.data.msg, icon: "cross" });
@@ -228,12 +236,18 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
                 <Select
                   id="personInChargeId"
                   name="personInChargeId"
-                  arrayOfData={adminUsers.map((user) => {
-                    return {
-                      value: user._id,
-                      name: `${user.firstName} ${user.lastName}`,
-                    };
-                  })}
+                  arrayOfData={adminUsers
+                    .filter(
+                      (personDoc) =>
+                        personDoc.role !== "superadmin" &&
+                        !personDoc.isCustodian
+                    )
+                    .map((user) => {
+                      return {
+                        value: user._id,
+                        name: `${user.firstName} ${user.lastName}`,
+                      };
+                    })}
                   onSelect={inputHandlerMid}
                   label={selectPerson}
                   className="w-auto mt-1"
@@ -263,19 +277,31 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
                           >
                             <span className="text-sm font-light text-gray-900 pr-2 whitespace-nowrap">
                               {personDoc.firstName} {personDoc.lastName}
+                              {personDoc.role === "superadmin"
+                                ? ` (Superadmin)`
+                                : personDoc.isCustodian &&
+                                  personDoc.isCustodian === true
+                                ? ` (School custodian)`
+                                : ``}
                             </span>
-                            <Button
-                              variant="danger"
-                              size="small"
-                              type="button"
-                              onClick={() => {
-                                removePersonInListHandler(personDoc._id);
-                              }}
-                              pill={true}
-                              className="text-xs"
-                            >
-                              x
-                            </Button>
+                            {(personDoc.isCustodian &&
+                              personDoc.isCustodian === true) ||
+                            personDoc.role === "superadmin" ? (
+                              <></>
+                            ) : (
+                              <Button
+                                variant="danger"
+                                size="small"
+                                type="button"
+                                onClick={() => {
+                                  removePersonInListHandler(personDoc._id);
+                                }}
+                                pill={true}
+                                className="text-xs"
+                              >
+                                x
+                              </Button>
+                            )}
                           </li>
                         );
                       }
