@@ -107,7 +107,6 @@ const AddItem = ({ setInInventoryListByCategoryMode, ...props }) => {
 
   useEffect(() => {
     if (isAdminUsersReady && isPlacesReady && isCategoriesReady) {
-
       setIsFormReady(true);
     }
   }, [isAdminUsersReady, isPlacesReady, isCategoriesReady]);
