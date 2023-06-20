@@ -71,16 +71,16 @@ const bottomLinks = [
       />
     ),
   },
-  // {
-  //   link: "/dashboard/attendance",
-  //   name: "Attendance",
-  //   component: (
-  //     <BsFillCalendarCheckFill
-  //       size={32}
-  //       className="text-indigo-600 hover:text-indigo-400"
-  //     />
-  //   ),
-  // },
+  {
+    link: "/dashboard/attendance",
+    name: "Attendance",
+    component: (
+      <BsFillCalendarCheckFill
+        size={32}
+        className="text-indigo-600 hover:text-indigo-400"
+      />
+    ),
+  },
 ];
 
 let reportCardLinkAdded = false;
