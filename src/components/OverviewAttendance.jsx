@@ -80,6 +80,7 @@ const OverviewAttendance = () => {
           if (res.data.success) {
             setUsers(res.data.users);
             setAttendanceRecords(res.data.attendanceRecords);
+            console.log("res.data.attendanceRecords", res.data.attendanceRecords);
             setAdviser(res.data?.adviser);
             setIsGroupDataReady(true);
           } else {
